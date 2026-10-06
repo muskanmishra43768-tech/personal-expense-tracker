@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login | Personal Expense Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif}
+body{min-height:100vh;background:#151126;color:#eeeaff;display:flex;align-items:center;justify-content:center;padding:25px;overflow:hidden;position:relative}
+body:before{content:"₹  $  €  £  ₹  💳  🪙  $  €  ₹  £  💵";position:fixed;inset:-60px;font-size:75px;font-weight:800;line-height:2.3;word-spacing:55px;letter-spacing:18px;color:rgba(108,77,246,.055);transform:rotate(-12deg);pointer-events:none}
+body:after{content:"₹  €  $  £  🪙  ₹  $  💳  €";position:fixed;inset:0;font-size:45px;line-height:3.2;letter-spacing:28px;color:rgba(40,190,170,.035);transform:rotate(8deg);pointer-events:none}
+.admin-container{width:100%;max-width:1050px;min-height:620px;background:#211b37;border:1px solid rgba(255,255,255,.08);border-radius:28px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;box-shadow:0 25px 80px rgba(0,0,0,.38);position:relative;z-index:1}
+.left-section{background:linear-gradient(145deg,#27213f,#3b3063);color:white;padding:55px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.left-section:before{content:"₹  $  €";position:absolute;right:-55px;top:15px;font-size:180px;font-weight:800;color:rgba(255,255,255,.035);transform:rotate(-12deg)}
+.left-section:after{content:"";position:absolute;width:300px;height:300px;border-radius:50%;background:rgba(108,77,246,.18);bottom:-170px;left:-110px}
+.brand,.left-content,.features{position:relative;z-index:2}
+.brand{display:flex;align-items:center;gap:12px}.brand-icon{width:48px;height:48px;border-radius:14px;background:#6c4df6;display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 10px 25px rgba(108,77,246,.25)}
+.brand h2{font-size:24px}.brand span{color:#bfb6ff}
+.shield{width:90px;height:90px;border-radius:25px;background:rgba(108,77,246,.25);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:42px;margin-bottom:28px}
+.left-content h1{font-size:38px;line-height:1.25;margin-bottom:18px}.left-content h1 span{color:#9d89ff}
+.left-content p{color:#d8d3eb;line-height:1.8;font-size:15px;max-width:430px}
+.features{display:flex;flex-direction:column;gap:14px}.feature{display:flex;align-items:center;gap:12px;color:#ddd8ed;font-size:14px}.feature-icon{width:30px;height:30px;border-radius:9px;background:rgba(108,77,246,.35);display:flex;align-items:center;justify-content:center;font-size:14px}
+.right-section{padding:60px;display:flex;flex-direction:column;justify-content:center;background:rgba(28,22,47,.9)}
+.login-heading{margin-bottom:35px}.small-title{color:#a896ff;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px}
+.login-heading h2{font-size:32px;margin-bottom:8px}.login-heading p{color:#918aa4;font-size:14px}
+.flash-messages{margin-bottom:20px}.flash{padding:12px 15px;border-radius:10px;background:#3a2440;color:#ffb5cf;font-size:13px;border-left:4px solid #ff6fa4;margin-bottom:8px}
+.form-group{margin-bottom:22px}.form-group label{display:block;font-size:13px;font-weight:600;margin-bottom:8px;color:#d8d2e7}
+.input-wrapper{position:relative}.input-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:17px}
+.form-control{width:100%;height:52px;border:1px solid #3d3657;border-radius:12px;padding:0 48px;background:#171229;color:#f5f1ff;outline:none;font-size:14px;transition:.25s}
+.form-control::placeholder{color:#756e88}.form-control:focus{border-color:#6c4df6;background:#1b1531;box-shadow:0 0 0 4px rgba(108,77,246,.1)}
+.password-toggle{position:absolute;right:15px;top:50%;transform:translateY(-50%);border:none;background:transparent;cursor:pointer;color:#9991ad;font-size:16px}
+.password-toggle:hover{color:#b6a9ff}
+.login-btn{width:100%;height:54px;border:none;border-radius:12px;background:linear-gradient(135deg,#6c4df6,#8065f8);color:white;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 10px 25px rgba(108,77,246,.25);transition:.25s}
+.login-btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(108,77,246,.35)}
+.security-note{margin-top:22px;padding:13px 15px;border-radius:11px;background:#17132a;color:#858096;border:1px solid rgba(255,255,255,.05);font-size:12px;display:flex;align-items:center;gap:9px}
+.security-note span{color:#9b88ff;font-size:16px}.back-link{text-align:center;margin-top:25px}.back-link a{text-decoration:none;color:#a896ff;font-size:13px;font-weight:500}.back-link a:hover{text-decoration:underline}
+@media(max-width:850px){body{overflow:auto}.admin-container{grid-template-columns:1fr;max-width:600px}.left-section{min-height:330px;padding:40px}.left-content{margin-top:35px}.left-content h1{font-size:30px}.features{display:none}.right-section{padding:45px}}
+@media(max-width:520px){body{padding:12px}.admin-container{border-radius:20px}.left-section{padding:30px;min-height:280px}.brand h2{font-size:21px}.shield{width:70px;height:70px;font-size:32px;border-radius:20px;margin-bottom:20px}.left-content h1{font-size:26px}.left-content p{font-size:13px}.right-section{padding:32px 25px}.login-heading h2{font-size:27px}}
+</style>
+</head>
+<body>
+<div class="admin-container">
+<section class="left-section">
+<div class="brand"><div class="brand-icon">💰</div><h2>Personal <span>Expense Tracker</span></h2></div>
+<div class="left-content">
+<div class="shield">🛡️</div>
+<h1>Admin <span>Control</span> Center</h1>
+<p>Securely manage users, expenses, reports and overall activity of your Personal Expense Tracker.</p>
+</div>
+<div class="features">
+<div class="feature"><div class="feature-icon">👥</div><span>Manage registered users</span></div>
+<div class="feature"><div class="feature-icon">📊</div><span>View expense statistics</span></div>
+<div class="feature"><div class="feature-icon">🔐</div><span>Secure admin access</span></div>
+</div>
+</section>
+
+<section class="right-section">
+<div class="login-heading">
+<div class="small-title">Administrator</div>
+<h2>Welcome Back 👋</h2>
+<p>Login to access your admin dashboard.</p>
+</div>
+
+{% if error %}
+<div class="flash">⚠️ {{ error }}</div>
+{% endif %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="flash-messages">
+{% for message in messages %}<div class="flash">⚠️ {{ message }}</div>{% endfor %}
+</div>
+{% endif %}
+{% endwith %}
+
+<form action="{{ url_for('admin_login') }}" method="POST">
+<div class="form-group">
+<label for="username">Admin Username</label>
+<div class="input-wrapper">
+<span class="input-icon">👤</span>
+<input type="text" id="username" name="username" class="form-control" placeholder="Enter admin username" required autocomplete="username">
+</div>
+</div>
+
+<div class="form-group">
+<label for="password">Password</label>
+<div class="input-wrapper">
+<span class="input-icon">🔒</span>
+<input type="password" id="password" name="password" class="form-control" placeholder="Enter admin password" required autocomplete="current-password">
+<button type="button" class="password-toggle" id="togglePassword" aria-label="Show password">👁️</button>
+</div>
+</div>
+
+<button type="submit" class="login-btn">Login to Admin Panel</button>
+</form>
+
+<div class="security-note"><span>🔐</span><p>This area is restricted to authorized administrators only.</p></div>
+<div class="back-link"><a href="{{ url_for('login') }}">← Back to User Login</a></div>
+</section>
+</div>
+
+<script>
+const passwordInput=document.getElementById("password");
+const togglePassword=document.getElementById("togglePassword");
+togglePassword.addEventListener("click",function(){
+if(passwordInput.type==="password"){passwordInput.type="text";togglePassword.textContent="🙈";this.setAttribute("aria-label","Hide password")}
+else{passwordInput.type="password";togglePassword.textContent="👁️";this.setAttribute("aria-label","Show password")}
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Settings | Expense Tracker</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,sans-serif;background:#151126;color:#f7f4ff;min-height:100vh}
+.watermark{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}.watermark span{position:absolute;font-size:150px;font-weight:900;opacity:.045}.watermark span:nth-child(1){left:4%;top:8%;color:#8b5cf6}.watermark span:nth-child(2){right:8%;top:20%;color:#3b82f6}.watermark span:nth-child(3){left:18%;bottom:8%;color:#22c55e}.watermark span:nth-child(4){right:25%;bottom:4%;color:#f59e0b}
+.sidebar{position:fixed;left:0;top:0;width:245px;height:100vh;background:#1d1732;border-right:1px solid #302650;padding:24px 16px;z-index:5}.logo{text-align:center;margin-bottom:28px}.logo-icon{width:48px;height:48px;margin:auto;border-radius:15px;background:#6c4df6;display:grid;place-items:center;font-size:25px;font-weight:bold}.logo h2{font-size:18px;margin-top:10px}.logo p{font-size:11px;color:#9991ad;margin-top:4px}.menu-title{font-size:10px;color:#746b89;text-transform:uppercase;letter-spacing:1px;margin:18px 8px 8px}.nav a{display:flex;gap:11px;align-items:center;text-decoration:none;color:#aaa3bb;padding:11px 12px;border-radius:10px;font-size:13px;margin:3px 0}.nav a:hover,.nav a.active{background:#6c4df6;color:#fff}.logout{position:absolute;bottom:22px;left:16px;right:16px}.main{margin-left:245px;position:relative;z-index:1}.topbar{height:78px;border-bottom:1px solid #292242;display:flex;align-items:center;justify-content:space-between;padding:0 30px;background:rgba(21,17,38,.9)}.topbar h3{font-size:19px}.topbar p{font-size:11px;color:#9189a5;margin-top:4px}.mobile{display:none;background:none;border:0;color:#fff;font-size:25px}.content{padding:30px;max-width:1050px;margin:auto}.hero{background:linear-gradient(135deg,#251c45,#1d1732);border:1px solid #33275a;border-radius:20px;padding:28px;margin-bottom:22px}.badge{display:inline-block;padding:7px 11px;background:#6c4df622;color:#bcaeff;border:1px solid #6c4f66;border-radius:20px;font-size:11px}.hero h1{font-size:30px;margin:14px 0 8px}.hero p{color:#a49db5;font-size:13px;line-height:1.7}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{background:#1e1834;border:1px solid #302650;border-radius:17px;padding:22px}.card h2{font-size:17px;margin-bottom:8px}.card p{font-size:11px;color:#9690a6;line-height:1.7;margin-bottom:18px}.setting{display:flex;justify-content:space-between;align-items:center;padding:15px 0;border-top:1px solid #2c2541}.setting:first-of-type{border-top:0}.setting h4{font-size:13px}.setting small{display:block;color:#81798f;font-size:10px;margin-top:4px}.pill{background:#292244;color:#bcaeff;border:1px solid #41356a;padding:7px 11px;border-radius:20px;font-size:10px}.btn{display:inline-block;text-decoration:none;background:#6c4df6;color:#fff;padding:11px 17px;border-radius:10px;font-size:12px;margin-top:5px}.footer{text-align:center;color:#716a80;font-size:10px;padding:25px}
+@media(max-width:760px){.sidebar{left:-245px}.sidebar.show{left:0}.main{margin-left:0}.mobile{display:block}.topbar{padding:0 17px}.content{padding:20px 15px}.grid{grid-template-columns:1fr}.hero h1{font-size:24px}}
+</style>
+
+<style id="final-dark-override">
+html,body{background:#0d0a18 !important;color:#eeeaff !important;}
+body{background:#0d0a18 !important;}
+.sidebar{background:#141020 !important;border-color:#211a33 !important;}
+.main{background:#0d0a18 !important;}
+.topbar,.top{background:#0f0b1b !important;border-color:#211a33 !important;}
+.content{background:transparent !important;}
+.hero,.card,.form-card,.info-card,.security-card,.page-hero{
+    background:#151024 !important;
+    border-color:#27203b !important;
+    box-shadow:none !important;
+    color:#eeeaff !important;
+}
+.hero p,.card p,.form-heading p,.field-note,.item p{
+    color:#777087 !important;
+}
+.card h2,.card h3,.form-heading h2,.item h4,.hero h1,.page-hero h1{
+    color:#eeeaff !important;
+}
+.hero h1 span{color:#a98cff !important;}
+.highlight,.help-card{background:#1b1530 !important;}
+input,textarea,select{
+    background:#100c1c !important;
+    color:#eeeaff !important;
+    border-color:#29213e !important;
+}
+footer,.foot{color:#5f586f !important;}
+</style>
+
+</head>
+<body>
+<div class="watermark"><span>₹</span><span>$</span><span>€</span><span>£</span></div>
+<aside class="sidebar" id="sidebar">
+<div class="logo"><div class="logo-icon">₹</div><h2>Expense Tracker</h2><p>Manage • Track • Save</p></div>
+<div class="menu-title">Main Menu</div>
+<nav class="nav">
+<a href="{{ url_for('dashboard') }}">📊 Dashboard</a><a href="{{ url_for('add_expense') }}">➕ Add Expense</a><a href="{{ url_for('expense_history') }}">🧾 Expense History</a><a href="{{ url_for('analysis') }}">📈 Analysis</a><a href="{{ url_for('budget') }}">💰 Budget</a><a href="{{ url_for('reports') }}">📑 Reports</a>
+</nav>
+<div class="menu-title">Account</div>
+<nav class="nav">
+<a href="{{ url_for('profile') }}">👤 Profile</a><a href="{{ url_for('settings') }}" class="active">⚙️ Settings</a><a href="{{ url_for('about') }}">ℹ️ About Us</a><a href="{{ url_for('contact') }}">📩 Contact Us</a>
+</nav>
+<a class="nav a logout" href="{{ url_for('logout') }}">🚪 Logout</a>
+</aside>
+<main class="main">
+<header class="topbar"><div style="display:flex;align-items:center;gap:14px"><button class="mobile" onclick="document.getElementById('sidebar').classList.toggle('show')">☰</button><div><h3>⚙️ Settings</h3><p>Manage your account preferences.</p></div></div></header>
+<section class="content">
+<div class="hero"><span class="badge">✨ Account Settings</span><h1>Make Your Experience Yours 💜</h1><p>Review your account information and keep your Expense Tracker experience organized and secure.</p></div>
+<div class="grid">
+<div class="card"><h2>👤 Account</h2><p>Your basic account information.</p>
+<div class="setting"><div><h4>Full Name</h4><small>{{ user['full_name'] or 'User' }}</small></div><span class="pill">Account</span></div>
+<div class="setting"><div><h4>Email</h4><small>{{ user['email'] }}</small></div><span class="pill">Verified</span></div>
+<div class="setting"><div><h4>Mobile</h4><small>{{ user['mobile'] or 'Not added' }}</small></div><span class="pill">Optional</span></div>
+<a class="btn" href="{{ url_for('profile') }}">✏️ Edit Profile</a>
+</div>
+<div class="card"><h2>🔐 Security</h2><p>Your login and password security options.</p>
+<div class="setting"><div><h4>Password</h4><small>Keep your password private and secure.</small></div><span class="pill">Protected</span></div>
+<div class="setting"><div><h4>Email Verification</h4><small>Verification status of your account.</small></div><span class="pill">{% if user['is_verified'] %}Verified{% else %}Pending{% endif %}</span></div>
+<div class="setting"><div><h4>Forgot Password</h4><small>Use OTP to create a new password.</small></div><a class="btn" href="{{ url_for('forgot_password') }}">Reset</a></div>
+</div>
+</div>
+<div class="footer">Personal Expense Tracker © 2026 • Track Smart • Spend Wise • Save More 💜</div>
+</section>
+</main>
+</body>
+</html>

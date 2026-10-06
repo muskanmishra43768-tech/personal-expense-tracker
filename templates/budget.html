@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Budget | Personal Expense Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif}
+body{background:#151126;color:#f7f4ff;min-height:100vh;overflow-x:hidden}
+body:before{
+    content:"₹   $   €   £   ₹   $   €   £   ₹   $";
+    position:fixed;inset:0;z-index:-1;pointer-events:none;
+    font-size:92px;font-weight:800;line-height:2.1;letter-spacing:25px;word-spacing:35px;
+    color:rgba(108,77,246,.055);transform:rotate(-12deg) scale(1.15)
+}
+body:after{
+    content:"💰   🪙   ₹   💳   $   🪙   €   💵";
+    position:fixed;left:-40px;top:45%;z-index:-1;pointer-events:none;
+    font-size:60px;letter-spacing:22px;color:rgba(54,190,151,.035);transform:rotate(-8deg)
+}
+
+.sidebar{position:fixed;left:0;top:0;width:250px;height:100vh;background:#211b38;border-right:1px solid rgba(255,255,255,.07);padding:24px 15px;display:flex;flex-direction:column;z-index:1000;overflow-y:auto}
+.logo{text-align:center;margin-bottom:27px}.logo-icon{width:55px;height:55px;margin:auto;border-radius:17px;background:linear-gradient(135deg,#6c4df6,#9a7cff);display:flex;align-items:center;justify-content:center;font-size:27px;box-shadow:0 8px 25px rgba(108,77,246,.35)}
+.logo h2{font-size:18px;margin-top:9px}.logo p{font-size:10px;color:#aaa5bd}
+.menu-title{color:#858099;font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:0 12px;margin:8px 0 9px}
+.nav-menu{display:flex;flex-direction:column;gap:4px}.nav-menu a{text-decoration:none;color:#d8d4e6;padding:10px 12px;border-radius:10px;display:flex;align-items:center;gap:11px;font-size:12px;font-weight:500;transition:.25s}
+.nav-menu a span{width:22px;text-align:center;font-size:16px}.nav-menu a:hover{background:rgba(255,255,255,.07);color:#fff;transform:translateX(3px)}
+.nav-menu a.active{background:#6c4df6;color:#fff;box-shadow:0 7px 18px rgba(108,77,246,.25)}
+.sidebar-bottom{margin-top:auto;padding-top:18px}.logout{display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;color:#ffb7b7;background:rgba(255,255,255,.06);padding:10px;border-radius:10px;font-size:11px;font-weight:600}
+
+.main{margin-left:250px;min-height:100vh}.topbar{height:75px;background:rgba(21,17,38,.88);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between;padding:0 38px;position:sticky;top:0;z-index:900}
+.topbar-left{display:flex;align-items:center;gap:12px}.top-icon{width:38px;height:38px;border-radius:11px;background:#292044;color:#a795ff;display:flex;align-items:center;justify-content:center;font-size:18px}
+.topbar h3{font-size:18px}.topbar p{color:#918ca2;font-size:9px;margin-top:2px}.profile-mini{display:flex;align-items:center;gap:9px}
+.avatar{width:37px;height:37px;border-radius:50%;background:#30265a;color:#b8aaff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+.profile-name{font-size:10px;font-weight:600}.profile-email{font-size:7px;color:#9690a3;margin-top:2px}
+.mobile-menu{display:none;border:0;background:#292044;color:#a795ff;width:38px;height:38px;border-radius:9px;cursor:pointer;font-size:19px}
+
+.content{padding:30px 38px}.page-hero{background:linear-gradient(135deg,#6c4df6,#8b68ff 55%,#5740c9);border-radius:21px;padding:28px;position:relative;overflow:hidden;margin-bottom:22px;box-shadow:0 15px 32px rgba(108,77,246,.2)}
+.page-hero:after{content:"₹";position:absolute;right:30px;top:-65px;font-size:240px;font-weight:800;color:rgba(255,255,255,.07);transform:rotate(-10deg)}
+.hero-content{position:relative;z-index:2}.hero-badge{display:inline-block;padding:6px 12px;border-radius:20px;background:rgba(255,255,255,.15);font-size:9px;font-weight:600;margin-bottom:9px}
+.page-hero h1{font-size:25px;margin-bottom:5px}.page-hero p{font-size:10px;color:#eeeaff}
+
+.flash-container{margin-bottom:18px}.flash-message{padding:11px 14px;border-radius:10px;font-size:9px;margin-bottom:7px}
+.flash-success{background:rgba(42,190,123,.12);color:#7de0b2;border:1px solid rgba(42,190,123,.25)}
+.flash-error{background:rgba(255,88,104,.1);color:#ff9da7;border:1px solid rgba(255,88,104,.22)}
+
+.budget-layout{display:grid;grid-template-columns:.85fr 1.35fr;gap:20px;align-items:start}
+.form-card,.history-card{background:rgba(31,25,54,.94);border:1px solid rgba(255,255,255,.07);border-radius:19px;padding:25px}
+.card-heading{margin-bottom:22px}.card-heading h2{font-size:17px}.card-heading p{color:#918ca2;font-size:9px;margin-top:4px;line-height:1.6}
+.form-group{margin-bottom:17px}.form-group label{display:block;color:#d8d4e6;font-size:10px;font-weight:600;margin-bottom:7px}.required{color:#ff8b9a}
+.form-control{width:100%;height:46px;border:1px solid #39314f;background:#1b1630;border-radius:10px;outline:none;color:#f7f4ff;font-size:10px;padding:0 12px;transition:.2s}
+.form-control:focus{border-color:#6c4df6;box-shadow:0 0 0 3px rgba(108,77,246,.1)}.amount-wrap{position:relative}.currency{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9f8aff;font-size:15px;font-weight:700}.amount-input{padding-left:32px;font-size:14px;font-weight:600}
+.helper-text{color:#898399;font-size:7px;margin-top:6px;line-height:1.6}
+.preview{background:#292044;border:1px solid rgba(167,149,255,.16);border-radius:11px;padding:13px;margin-bottom:17px}.preview-label{color:#918ca2;font-size:8px}.preview-amount{color:#a795ff;font-size:20px;font-weight:800;margin-top:3px}
+.save-button{width:100%;height:46px;border:0;border-radius:10px;background:#6c4df6;color:#fff;font-size:10px;font-weight:700;cursor:pointer;box-shadow:0 8px 17px rgba(108,77,246,.18);transition:.2s}.save-button:hover{background:#5b40d9;transform:translateY(-1px)}
+
+.side-card{background:linear-gradient(135deg,#211b38,#292044);border:1px solid rgba(255,255,255,.07);border-radius:19px;padding:23px;margin-bottom:18px;position:relative;overflow:hidden}.side-card:after{content:"₹";position:absolute;right:-15px;bottom:-50px;font-size:160px;color:rgba(255,255,255,.025);font-weight:800}
+.side-content{position:relative;z-index:2}.side-badge{display:inline-block;background:rgba(108,77,246,.3);color:#dcd5ff;padding:5px 9px;border-radius:20px;font-size:8px;margin-bottom:10px}.side-card h2{font-size:17px;margin-bottom:4px}.side-card p{color:#aaa5bd;font-size:8px;line-height:1.7}
+.history-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.history-header h2{font-size:15px}.history-header span{background:#2b2250;color:#a795ff;padding:5px 9px;border-radius:20px;font-size:8px;font-weight:600}
+.budget-list{display:flex;flex-direction:column;gap:10px}.budget-item{border:1px solid rgba(255,255,255,.07);background:#1b1630;border-radius:12px;padding:13px;display:grid;grid-template-columns:45px 1fr auto;gap:11px;align-items:center;transition:.2s}.budget-item:hover{border-color:#4b3b76;background:#201a39}
+.month-icon{width:42px;height:42px;border-radius:11px;background:#2b2250;color:#a795ff;display:flex;flex-direction:column;align-items:center;justify-content:center}.month-icon span:first-child{font-size:14px}.month-icon span:last-child{font-size:6px;font-weight:700}
+.budget-month{font-size:10px;font-weight:600}.budget-note{color:#9791a5;font-size:7px;margin-top:3px}.budget-amount{text-align:right;font-size:12px;font-weight:800;color:#a795ff}
+.empty-history{text-align:center;padding:35px 15px}.empty-history-icon{font-size:35px;margin-bottom:8px}.empty-history h3{font-size:13px}.empty-history p{color:#918ca2;font-size:8px;margin-top:5px;line-height:1.6}
+.tips-card{background:#211b38;border:1px solid rgba(167,149,255,.13);border-radius:17px;padding:19px;margin-top:18px}.tips-card h3{color:#b9aaff;font-size:12px;margin-bottom:10px}.tip{display:flex;gap:9px;margin-bottom:9px}.tip:last-child{margin-bottom:0}.tip-icon{font-size:13px}.tip p{color:#aaa5bd;font-size:8px;line-height:1.6}
+footer{text-align:center;color:#77718c;font-size:8px;padding:27px 0 8px;line-height:1.7}
+
+@media(max-width:950px){.budget-layout{grid-template-columns:1fr}}
+@media(max-width:760px){.sidebar{left:-260px;transition:.3s}.sidebar.show{left:0}.main{margin-left:0}.mobile-menu{display:block}.topbar{padding:0 17px}.profile-email{display:none}.content{padding:20px 16px}.page-hero{padding:23px}.page-hero h1{font-size:22px}}
+@media(max-width:500px){.profile-name{display:none}.form-card,.history-card{padding:18px}.budget-item{grid-template-columns:42px 1fr}.budget-amount{grid-column:2;text-align:left}}
+</style>
+</head>
+
+<body>
+<aside class="sidebar" id="sidebar">
+    <div class="logo"><div class="logo-icon">₹</div><h2>Expense Tracker</h2><p>Manage • Track • Save</p></div>
+    <div class="menu-title">Main Menu</div>
+    <nav class="nav-menu">
+        <a href="{{ url_for('dashboard') }}"><span>📊</span>Dashboard</a>
+        <a href="{{ url_for('add_expense') }}"><span>➕</span>Add Expense</a>
+        <a href="{{ url_for('expense_history') }}"><span>🧾</span>Expense History</a>
+        <a href="{{ url_for('analysis') }}"><span>📈</span>Analysis</a>
+        <a href="{{ url_for('budget') }}" class="active"><span>💰</span>Budget</a>
+        <a href="{{ url_for('reports') }}"><span>📑</span>Reports</a>
+    </nav>
+    <div class="menu-title">Account</div>
+    <nav class="nav-menu">
+        <a href="{{ url_for('profile') }}"><span>👤</span>Profile</a>
+        <a href="{{ url_for('settings') }}"><span>⚙️</span>Settings</a>
+        <a href="{{ url_for('about') }}"><span>ℹ️</span>About Us</a>
+        <a href="{{ url_for('contact') }}"><span>📩</span>Contact Us</a>
+    </nav>
+    <div class="sidebar-bottom"><a href="{{ url_for('logout') }}" class="logout">🚪 Logout</a></div>
+</aside>
+
+<main class="main">
+<header class="topbar">
+    <div class="topbar-left">
+        <button class="mobile-menu" onclick="toggleSidebar()">☰</button>
+        <div class="top-icon">💰</div>
+        <div><h3>Budget Planner</h3><p>Plan your monthly spending wisely.</p></div>
+    </div>
+    <div class="profile-mini">
+        <div class="avatar">{{ (user['full_name'] or 'U')[0]|upper }}</div>
+        <div><div class="profile-name">{{ user['full_name'] or 'User' }}</div><div class="profile-email">{{ user['email'] }}</div></div>
+    </div>
+</header>
+
+<section class="content">
+    <div class="page-hero">
+        <div class="hero-content">
+            <div class="hero-badge">🎯 Smart Budget Planning</div>
+            <h1>Take Control of Your Budget</h1>
+            <p>Set a monthly spending limit and keep your financial goals organized.</p>
+        </div>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-container">
+        {% for category,message in messages %}
+        <div class="flash-message {% if category == 'success' %}flash-success{% else %}flash-error{% endif %}">
+            {% if category == 'success' %}✅{% else %}⚠️{% endif %} {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <div class="budget-layout">
+        <div>
+            <div class="form-card">
+                <div class="card-heading">
+                    <h2>🎯 Set Monthly Budget</h2>
+                    <p>Choose a month and enter the maximum amount you want to spend.</p>
+                </div>
+
+                <form method="POST" action="{{ url_for('budget') }}" onsubmit="return validateBudget()">
+                    <div class="form-group">
+                        <label for="month">Budget Month <span class="required">*</span></label>
+                        <input type="month" id="month" name="month" class="form-control" required>
+                        <div class="helper-text">Saving the same month again will update its budget.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="total_budget">Total Monthly Budget <span class="required">*</span></label>
+                        <div class="amount-wrap">
+                            <span class="currency">₹</span>
+                            <input type="number" id="total_budget" name="total_budget" class="form-control amount-input" placeholder="Enter budget amount" min="0.01" step="0.01" required oninput="updatePreview()">
+                        </div>
+                        <div class="helper-text">Enter the maximum amount you want to allocate for the selected month.</div>
+                    </div>
+
+                    <div class="preview">
+                        <div class="preview-label">Budget Preview</div>
+                        <div id="previewAmount" class="preview-amount">₹0.00</div>
+                    </div>
+
+                    <button type="submit" class="save-button">💾 Save Budget</button>
+                </form>
+            </div>
+
+            <div class="tips-card">
+                <h3>💡 Budget Tips</h3>
+                <div class="tip"><div class="tip-icon">✨</div><p>Set a realistic limit based on your usual monthly expenses.</p></div>
+                <div class="tip"><div class="tip-icon">📊</div><p>Check Analysis regularly to understand where your money is going.</p></div>
+                <div class="tip"><div class="tip-icon">💰</div><p>Try to leave some room for savings and unexpected expenses.</p></div>
+            </div>
+        </div>
+
+        <div>
+            <div class="side-card">
+                <div class="side-content">
+                    <div class="side-badge">💜 Your Money Plan</div>
+                    <h2>Spend With a Plan</h2>
+                    <p>A budget gives every rupee a purpose. Keep your limit visible and make smarter spending decisions throughout the month.</p>
+                </div>
+            </div>
+
+            <div class="history-card">
+                <div class="history-header">
+                    <h2>📅 Saved Budgets</h2>
+                    <span>{{ budgets|length }} saved</span>
+                </div>
+
+                {% if budgets %}
+                <div class="budget-list">
+                    {% for item in budgets %}
+                    <div class="budget-item">
+                        <div class="month-icon"><span>📅</span><span>BUDGET</span></div>
+                        <div>
+                            <div class="budget-month">{{ item['month'] }}</div>
+                            <div class="budget-note">Monthly spending limit</div>
+                        </div>
+                        <div class="budget-amount">₹{{ "%.2f"|format(item['total_budget'] or 0) }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="empty-history">
+                    <div class="empty-history-icon">🌱</div>
+                    <h3>No Budget Set Yet</h3>
+                    <p>Set your first monthly budget and start planning your spending.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <footer>Personal Expense Tracker © 2026<br>Track Smart • Spend Wise • Save More 💜</footer>
+</section>
+</main>
+
+<script>
+function toggleSidebar(){document.getElementById("sidebar").classList.toggle("show")}
+
+const monthInput=document.getElementById("month");
+if(monthInput && !monthInput.value){
+    const today=new Date();
+    monthInput.value=today.getFullYear()+"-"+String(today.getMonth()+1).padStart(2,"0");
+}
+
+function updatePreview(){
+    const amount=Number(document.getElementById("total_budget").value)||0;
+    document.getElementById("previewAmount").textContent="₹"+amount.toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+function validateBudget(){
+    const month=document.getElementById("month").value;
+    const amount=Number(document.getElementById("total_budget").value);
+    if(!month){alert("Please select a budget month.");return false}
+    if(!amount || amount<=0){alert("Please enter a valid budget amount.");return false}
+    return true;
+}
+document.querySelectorAll(".sidebar a").forEach(link=>{
+    link.addEventListener("click",()=>{
+        if(window.innerWidth<=760)document.getElementById("sidebar").classList.remove("show");
+    });
+});
+updatePreview();
+</script>
+</body>
+</html>

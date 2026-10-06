@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Reports | Personal Expense Tracker</title>
+
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{
+            font-family:Arial,Helvetica,sans-serif;
+            background:linear-gradient(135deg,#120b24,#21113d,#32165a);
+            color:#fff;
+            min-height:100vh;
+            overflow-x:hidden;
+        }
+        body::before{
+            content:"₹   $   €   £   💰   ₹   $   €";
+            position:fixed;
+            inset:0;
+            font-size:70px;
+            line-height:2.2;
+            letter-spacing:35px;
+            color:rgba(255,255,255,.025);
+            transform:rotate(-18deg);
+            pointer-events:none;
+            z-index:0;
+            white-space:pre-wrap;
+        }
+        .layout{display:flex;min-height:100vh;position:relative;z-index:1}
+
+        .sidebar{
+            width:245px;
+            background:rgba(12,7,27,.94);
+            border-right:1px solid rgba(255,255,255,.1);
+            padding:28px 18px;
+            position:fixed;
+            top:0;bottom:0;left:0;
+            z-index:10;
+        }
+        .brand{
+            text-align:center;
+            font-size:22px;
+            font-weight:800;
+            margin-bottom:35px;
+            color:#fff;
+        }
+        .brand span{color:#c77dff}
+        .nav a{
+            display:block;
+            text-decoration:none;
+            color:#ddd;
+            padding:13px 15px;
+            margin:7px 0;
+            border-radius:12px;
+            transition:.25s;
+            font-weight:600;
+        }
+        .nav a:hover,.nav a.active{
+            background:linear-gradient(90deg,#7b2cbf,#9d4edd);
+            color:#fff;
+            transform:translateX(3px);
+        }
+
+        .main{
+            margin-left:245px;
+            width:calc(100% - 245px);
+            padding:35px;
+        }
+        .header{
+            margin-bottom:25px;
+        }
+        .header h1{font-size:32px;margin-bottom:8px}
+        .header p{color:#cfc4df;font-size:15px}
+
+        .cards{
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            gap:18px;
+            margin-bottom:25px;
+        }
+        .card{
+            background:rgba(255,255,255,.08);
+            border:1px solid rgba(255,255,255,.1);
+            border-radius:18px;
+            padding:22px;
+            box-shadow:0 12px 30px rgba(0,0,0,.18);
+            backdrop-filter:blur(8px);
+        }
+        .card h3{font-size:14px;color:#cfc4df;margin-bottom:10px}
+        .card .value{font-size:27px;font-weight:800}
+        .card .icon{font-size:25px;margin-bottom:12px}
+
+        .grid{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:22px;
+        }
+        .panel{
+            background:rgba(255,255,255,.075);
+            border:1px solid rgba(255,255,255,.1);
+            border-radius:18px;
+            padding:22px;
+            box-shadow:0 12px 30px rgba(0,0,0,.18);
+            backdrop-filter:blur(8px);
+            overflow:hidden;
+        }
+        .panel.full{grid-column:1/-1}
+        .panel h2{font-size:20px;margin-bottom:5px}
+        .panel-sub{color:#bfb3d2;font-size:13px;margin-bottom:18px}
+
+        table{width:100%;border-collapse:collapse}
+        th,td{
+            padding:13px 10px;
+            text-align:left;
+            border-bottom:1px solid rgba(255,255,255,.08);
+            font-size:13px;
+        }
+        th{color:#d9c9ea;font-size:12px;text-transform:uppercase;letter-spacing:.4px}
+        td{color:#f5f0fa}
+        tr:hover td{background:rgba(255,255,255,.035)}
+
+        .amount{font-weight:800;color:#f1c8ff}
+        .badge{
+            display:inline-block;
+            padding:5px 9px;
+            border-radius:20px;
+            background:rgba(199,125,255,.15);
+            color:#e3b9ff;
+            font-size:11px;
+            font-weight:700;
+        }
+
+        .bar-wrap{
+            width:100%;
+            height:9px;
+            background:rgba(255,255,255,.08);
+            border-radius:20px;
+            overflow:hidden;
+            margin-top:7px;
+        }
+        .bar{
+            height:100%;
+            background:linear-gradient(90deg,#7b2cbf,#c77dff);
+            border-radius:20px;
+            min-width:2px;
+        }
+
+        .empty{
+            text-align:center;
+            padding:30px;
+            color:#a99bb9;
+        }
+
+        footer{
+            text-align:center;
+            color:#8f819e;
+            font-size:12px;
+            padding:28px 0 5px;
+        }
+
+        @media(max-width:1100px){
+            .cards{grid-template-columns:repeat(2,1fr)}
+        }
+        @media(max-width:850px){
+            .sidebar{
+                position:relative;
+                width:100%;
+                height:auto;
+                border-right:0;
+                border-bottom:1px solid rgba(255,255,255,.1);
+            }
+            .layout{display:block}
+            .main{margin-left:0;width:100%;padding:22px}
+            .nav{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+            .nav a{margin:2px}
+            .grid{grid-template-columns:1fr}
+            .panel.full{grid-column:auto}
+        }
+        @media(max-width:600px){
+            .cards{grid-template-columns:1fr}
+            .nav{grid-template-columns:repeat(2,1fr)}
+            .header h1{font-size:26px}
+            .panel{padding:15px;overflow-x:auto}
+            table{min-width:650px}
+        }
+    </style>
+</head>
+
+<body>
+<div class="layout">
+
+    <aside class="sidebar">
+        <div class="brand">💜 Expense <span>Admin</span></div>
+
+        <nav class="nav">
+            <a href="{{ url_for('admin_dashboard') }}">📊 Overview</a>
+            <a href="{{ url_for('admin_users') }}">👥 Users</a>
+            <a href="{{ url_for('admin_expenses') }}">💰 Expenses</a>
+            <a href="{{ url_for('admin_activity') }}">🕒 Activity</a>
+            <a href="{{ url_for('admin_reports') }}" class="active">📈 Reports</a>
+            <a href="{{ url_for('admin_logout') }}">🚪 Logout</a>
+        </nav>
+    </aside>
+
+    <main class="main">
+
+        <section class="header">
+            <h1>📈 Expense Reports</h1>
+            <p>Analyze overall spending, category-wise expenses and monthly trends.</p>
+        </section>
+
+        <section class="cards">
+
+            <div class="card">
+                <div class="icon">💰</div>
+                <h3>Total Expense</h3>
+                <div class="value">₹{{ "%.2f"|format(total_expense or 0) }}</div>
+            </div>
+
+            <div class="card">
+                <div class="icon">🧾</div>
+                <h3>Total Transactions</h3>
+                <div class="value">
+                    {{ category_data|sum(attribute='count') }}
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon">📂</div>
+                <h3>Expense Categories</h3>
+                <div class="value">{{ category_data|length }}</div>
+            </div>
+
+            <div class="card">
+                <div class="icon">📊</div>
+                <h3>Average Transaction</h3>
+                <div class="value">
+                    {% set transaction_count = category_data|sum(attribute='count') %}
+                    ₹{{ "%.2f"|format((total_expense / transaction_count) if transaction_count else 0) }}
+                </div>
+            </div>
+
+        </section>
+
+        <section class="grid">
+
+            <div class="panel">
+                <h2>📂 Category-wise Expense</h2>
+                <p class="panel-sub">See where users are spending the most money.</p>
+
+                {% if category_data %}
+                {% set max_category = category_data|map(attribute='total')|max %}
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Transactions</th>
+                            <th>Total</th>
+                            <th>Share</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in category_data %}
+                        {% set percentage = ((item.total / total_expense) * 100) if total_expense else 0 %}
+                        <tr>
+                            <td><span class="badge">{{ item.category or "Other" }}</span></td>
+                            <td>{{ item.count }}</td>
+                            <td class="amount">₹{{ "%.2f"|format(item.total or 0) }}</td>
+                            <td style="min-width:130px;">
+                                {{ "%.1f"|format(percentage) }}%
+                                <div class="bar-wrap">
+                                    <div class="bar report-bar" data-width="{{ percentage }}"></div>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                    <div class="empty">No expense category data available yet.</div>
+                {% endif %}
+            </div>
+
+            <div class="panel">
+                <h2>📅 Monthly Expense</h2>
+                <p class="panel-sub">Track how total spending changes month by month.</p>
+
+                {% if monthly_data %}
+                {% set max_month = monthly_data|map(attribute='total')|max %}
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Month</th>
+                            <th>Total Expense</th>
+                            <th>Trend</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in monthly_data %}
+                        {% set percentage = ((item.total / max_month) * 100) if max_month else 0 %}
+                        <tr>
+                            <td><span class="badge">{{ item.month }}</span></td>
+                            <td class="amount">₹{{ "%.2f"|format(item.total or 0) }}</td>
+                            <td style="min-width:140px;">
+                                <div class="bar-wrap">
+                                    <div class="bar report-bar" data-width="{{ percentage }}"></div>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                    <div class="empty">No monthly expense data available yet.</div>
+                {% endif %}
+            </div>
+
+            <div class="panel full">
+                <h2>💡 Report Summary</h2>
+                <p class="panel-sub">Quick overview generated from the expense report data.</p>
+
+                {% if category_data %}
+                    {% set top_category = category_data|sort(attribute='total', reverse=true)|first %}
+                    <p style="color:#ddd;line-height:1.8;">
+                        The highest spending category is
+                        <strong style="color:#e3b9ff;">{{ top_category.category or "Other" }}</strong>
+                        with total spending of
+                        <strong style="color:#f1c8ff;">₹{{ "%.2f"|format(top_category.total or 0) }}</strong>
+                        across <strong>{{ top_category.count }}</strong> transaction(s).
+                    </p>
+                {% else %}
+                    <p style="color:#aaa;">Add expenses to generate useful report insights.</p>
+                {% endif %}
+            </div>
+
+        </section>
+
+        <footer>
+            Personal Expense Tracker • Admin Reports Center 💜
+        </footer>
+
+    </main>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".report-bar").forEach(function (bar) {
+        const width = parseFloat(bar.dataset.width || "0");
+        const safeWidth = Math.max(0, Math.min(100, width));
+        bar.style.width = safeWidth + "%";
+    });
+});
+</script>
+
+</body>
+</html>

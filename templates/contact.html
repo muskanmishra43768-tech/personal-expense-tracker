@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Contact Us | Expense Tracker</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,sans-serif;background:#151126;color:#f7f4ff;min-height:100vh}.wm{position:fixed;inset:0;overflow:hidden;pointer-events:none}.wm span{position:absolute;font-size:160px;font-weight:900;opacity:.045}.wm span:nth-child(1){left:4%;top:8%;color:#8b5cf6}.wm span:nth-child(2){right:8%;top:20%;color:#3b82f6}.wm span:nth-child(3){left:15%;bottom:8%;color:#22c55e}.wm span:nth-child(4){right:25%;bottom:4%;color:#f59e0b}.sidebar{position:fixed;left:0;top:0;width:245px;height:100vh;background:#1d1732;border-right:1px solid #302650;padding:24px 16px;z-index:5}.logo{text-align:center;margin-bottom:28px}.logo-icon{width:48px;height:48px;margin:auto;border-radius:15px;background:#6c4df6;display:grid;place-items:center;font-size:25px;font-weight:bold}.logo h2{font-size:18px;margin-top:10px}.logo p{font-size:11px;color:#9991ad}.mt{font-size:10px;color:#746b89;text-transform:uppercase;letter-spacing:1px;margin:18px 8px 8px}.nav a{display:block;text-decoration:none;color:#aaa3bb;padding:11px 12px;border-radius:10px;font-size:13px;margin:3px 0}.nav a:hover,.nav a.active{background:#6c4df6;color:#fff}.logout{position:absolute;bottom:22px;left:16px;right:16px}.main{margin-left:245px;position:relative;z-index:1}.top{height:78px;border-bottom:1px solid #292242;display:flex;align-items:center;padding:0 30px}.top h3{font-size:19px}.top p{font-size:11px;color:#9189a5;margin-top:4px}.mob{display:none;background:none;border:0;color:#fff;font-size:25px;margin-right:12px}.content{max-width:1050px;margin:auto;padding:30px}.hero{background:linear-gradient(135deg,#291d4b,#1d1732);border:1px solid #35285c;border-radius:20px;padding:28px;margin-bottom:20px}.badge{display:inline-block;background:#6c4df622;border:1px solid #5c4789;color:#c6baff;padding:7px 11px;border-radius:20px;font-size:11px}.hero h1{font-size:30px;margin:13px 0 8px}.hero p{color:#a49db5;font-size:13px;line-height:1.7}.grid{display:grid;grid-template-columns:1fr 1.25fr;gap:18px}.card{background:#1e1834;border:1px solid #302650;border-radius:17px;padding:22px}.card h2{font-size:17px;margin-bottom:8px}.card p{font-size:11px;color:#9690a6;line-height:1.7}.item{display:flex;gap:12px;padding:14px 0;border-top:1px solid #2c2541}.item:first-of-type{border-top:0}.ico{width:38px;height:38px;border-radius:11px;background:#6c4df622;display:grid;place-items:center}.item h4{font-size:12px}.item p,.item a{font-size:10px;color:#9d95ac;margin-top:4px}.form-group{margin-bottom:13px}.form-group label{display:block;font-size:11px;margin-bottom:6px;color:#c9c2d5}.form-group input,.form-group textarea{width:100%;background:#171329;border:1px solid #342b4d;color:#fff;border-radius:10px;padding:11px;font-size:12px;outline:none}.form-group textarea{min-height:115px;resize:vertical}.form-group input:focus,.form-group textarea:focus{border-color:#6c4df6}.btn{border:0;background:#6c4df6;color:#fff;padding:11px 17px;border-radius:10px;font-size:12px;cursor:pointer}.flash{padding:11px 14px;border-radius:10px;background:#193b2a;border:1px solid #2e6a49;color:#9ff0c0;font-size:11px;margin-bottom:15px}.foot{text-align:center;color:#716a80;font-size:10px;padding:25px}
+@media(max-width:760px){.sidebar{left:-245px}.sidebar.show{left:0}.main{margin-left:0}.mob{display:block}.content{padding:20px 15px}.grid{grid-template-columns:1fr}.hero h1{font-size:25px}}
+</style>
+<style id="final-dark-override">
+html,body{background:#0d0a18 !important;color:#eeeaff !important;}
+body{background:#0d0a18 !important;}
+.sidebar{background:#141020 !important;border-color:#211a33 !important;}
+.main{background:#0d0a18 !important;}
+.topbar,.top{background:#0f0b1b !important;border-color:#211a33 !important;}
+.content{background:transparent !important;}
+.hero,.card,.form-card,.info-card,.security-card,.page-hero{
+    background:#151024 !important;
+    border-color:#27203b !important;
+    box-shadow:none !important;
+    color:#eeeaff !important;
+}
+.hero p,.card p,.form-heading p,.field-note,.item p{
+    color:#777087 !important;
+}
+.card h2,.card h3,.form-heading h2,.item h4,.hero h1,.page-hero h1{
+    color:#eeeaff !important;
+}
+.hero h1 span{color:#a98cff !important;}
+.highlight,.help-card{background:#1b1530 !important;}
+input,textarea,select{
+    background:#100c1c !important;
+    color:#eeeaff !important;
+    border-color:#29213e !important;
+}
+footer,.foot{color:#5f586f !important;}
+</style>
+
+</head>
+<body><div class="wm"><span>₹</span><span>$</span><span>€</span><span>£</span></div>
+<aside class="sidebar" id="sidebar"><div class="logo"><div class="logo-icon">₹</div><h2>Expense Tracker</h2><p>Manage • Track • Save</p></div><div class="mt">Main Menu</div><nav class="nav"><a href="{{ url_for('dashboard') }}">📊 Dashboard</a><a href="{{ url_for('add_expense') }}">➕ Add Expense</a><a href="{{ url_for('expense_history') }}">🧾 Expense History</a><a href="{{ url_for('analysis') }}">📈 Analysis</a><a href="{{ url_for('budget') }}">💰 Budget</a><a href="{{ url_for('reports') }}">📑 Reports</a></nav><div class="mt">Account</div><nav class="nav"><a href="{{ url_for('profile') }}">👤 Profile</a><a href="{{ url_for('settings') }}">⚙️ Settings</a><a href="{{ url_for('about') }}">ℹ️ About Us</a><a href="{{ url_for('contact') }}" class="active">📩 Contact Us</a></nav><a class="nav logout" href="{{ url_for('logout') }}">🚪 Logout</a></aside>
+<main class="main"><header class="top"><button class="mob" onclick="document.getElementById('sidebar').classList.toggle('show')">☰</button><div><h3>📩 Contact Us</h3><p>We're here to help you.</p></div></header>
+<section class="content"><div class="hero"><span class="badge">💜 Get In Touch</span><h1>We'd Love to Hear From You</h1><p>Have a question, suggestion or feedback? Send us a message.</p></div>
+{% with messages=get_flashed_messages(with_categories=true) %}{% for category,message in messages %}<div class="flash">✅ {{ message }}</div>{% endfor %}{% endwith %}
+<div class="grid"><div class="card"><h2>Let's Connect 💜</h2><p style="margin-bottom:16px">Your feedback helps make the Expense Tracker better.</p><div class="item"><div class="ico">📧</div><div><h4>Email</h4><p>support@personalexpensetracker.com</p></div></div><div class="item"><div class="ico">📸</div><div><h4>Instagram</h4><a href="https://www.instagram.com/smiley_mess/" target="_blank">📸 @smiley_mess</a></div></div><div class="item"><div class="ico">💬</div><div><h4>Support</h4><p>We're happy to help.</p></div></div></div>
+<div class="card"><h2>Send Us a Message</h2><p style="margin-bottom:17px">Fill in the details below.</p><form method="POST" action="{{ url_for('contact') }}"><div class="form-group"><label>Name</label><input name="name" value="{{ user['full_name'] if user else '' }}" required></div><div class="form-group"><label>Email</label><input type="email" name="email" value="{{ user['email'] if user else '' }}" required></div><div class="form-group"><label>Subject</label><input name="subject" placeholder="What is this about?"></div><div class="form-group"><label>Message</label><textarea name="message" placeholder="Write your message..." required></textarea></div><button class="btn" type="submit">📨 Send Message</button></form></div></div><div class="foot">Personal Expense Tracker © 2026 • Track Smart • Spend Wise • Save More 💜</div></section></main></body></html>

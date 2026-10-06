@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activity | Admin | Personal Expense Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:"Poppins",sans-serif}
+body{background:#151126;color:#eeeaff;min-height:100vh;overflow-x:hidden;position:relative}
+body:before{
+content:"₹  $  €  £  🪙  💳  ₹  $  €  £  💵";
+position:fixed;inset:-50px;font-size:70px;font-weight:800;line-height:2.4;
+word-spacing:55px;letter-spacing:16px;color:rgba(108,77,246,.045);
+transform:rotate(-12deg);pointer-events:none;z-index:-1
+}
+.side{
+position:fixed;left:0;top:0;width:245px;height:100vh;background:#27213f;
+color:#fff;padding:25px 15px;display:flex;flex-direction:column;
+z-index:1000;border-right:1px solid rgba(255,255,255,.06)
+}
+.logo{text-align:center;margin-bottom:34px}
+.logo-icon{
+width:55px;height:55px;margin:auto;border-radius:17px;background:#6c4df6;
+display:flex;align-items:center;justify-content:center;font-size:25px;
+box-shadow:0 8px 20px rgba(108,77,246,.3)
+}
+.logo h2{font-size:18px;margin-top:9px}.logo p{font-size:10px;color:#aaa5bd}
+.menu-title{color:#858099;font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:0 12px;margin:10px 0 9px}
+.side a{display:flex;align-items:center;gap:11px;color:#d8d4e6;text-decoration:none;padding:11px 12px;border-radius:10px;margin:3px 0;font-size:12px;transition:.2s}
+.side a:hover,.side a.active{background:#6c4df6;color:white}
+.side a span{width:22px;text-align:center;font-size:16px}.side-bottom{margin-top:auto}
+.logout{background:rgba(255,255,255,.06)!important;color:#ffb7b7!important;justify-content:center}
+
+.main{margin-left:245px;padding:30px;min-height:100vh}
+.head{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px;gap:20px}
+.head h1{font-size:27px;color:#f3efff}.head p{color:#8f879f;font-size:12px;margin-top:5px}
+.logout-top{background:#6c4df6;color:#fff;padding:10px 16px;border-radius:10px;text-decoration:none;font-size:11px;font-weight:600}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:22px}
+.card{background:#211b37;border:1px solid rgba(255,255,255,.07);border-radius:17px;padding:20px;box-shadow:0 8px 25px rgba(0,0,0,.16)}
+.label{font-size:11px;color:#9790a7}.num{font-size:27px;font-weight:700;color:#a998ff;margin-top:7px}
+
+.table-title{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:15px}
+.table-title h2{font-size:17px;color:#e9e4f7}.table-title span{font-size:10px;color:#777087}
+.table-wrap{overflow:auto;max-height:680px}
+.table{width:100%;border-collapse:collapse;font-size:11px;min-width:1000px}
+.table th,.table td{text-align:left;padding:12px 9px;border-bottom:1px solid rgba(255,255,255,.07);white-space:nowrap}
+.table th{color:#a998ff;background:#18132b;position:sticky;top:0;z-index:2}
+.table td{color:#c2bccf}
+.user-name{color:#eeeaff;font-weight:600}.email{font-size:9px;color:#817a91;margin-top:2px}
+.badge{display:inline-block;padding:5px 9px;border-radius:20px;background:rgba(108,77,246,.14);color:#b6a8ff;font-size:10px}
+.login{background:rgba(60,190,120,.12);color:#8ee6b2}
+.logout-badge{background:rgba(255,170,170,.12);color:#ffb1b1}
+.expense{background:rgba(255,190,90,.12);color:#ffc77d}
+.other{background:rgba(160,150,190,.12);color:#c8c1d5}
+.empty{text-align:center!important;color:#777087!important;padding:35px!important}
+.footer{text-align:center;color:#696277;font-size:10px;padding:25px 0 5px}
+
+@media(max-width:1000px){.stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:800px){
+.side{width:72px;padding:20px 9px}.logo h2,.logo p,.menu-title,.side a .text{display:none}
+.logo-icon{width:48px;height:48px}.side a{justify-content:center;padding:12px}.side a span{font-size:18px}
+.main{margin-left:72px;padding:20px}
+}
+@media(max-width:550px){
+.stats{grid-template-columns:1fr}.main{padding:15px}.head{align-items:flex-start;flex-direction:column}
+.logout-top{align-self:stretch;text-align:center}
+}
+</style>
+</head>
+
+<body>
+
+<aside class="side">
+<div class="logo">
+<div class="logo-icon">₹</div>
+<h2>Expense Tracker</h2>
+<p>Admin Control Center</p>
+</div>
+
+<div class="menu-title">Admin Menu</div>
+
+<a href="{{ url_for('admin_dashboard') }}">
+<span>📊</span><span class="text">Overview</span>
+</a>
+
+<a href="{{ url_for('admin_users') }}">
+<span>👥</span><span class="text">Users</span>
+</a>
+
+<a href="{{ url_for('admin_expenses') }}">
+<span>💰</span><span class="text">Expenses</span>
+</a>
+
+<a href="{{ url_for('admin_activity') }}" class="active">
+<span>🕒</span><span class="text">Activity</span>
+</a>
+
+<a href="{{ url_for('admin_reports') }}">
+<span>📈</span><span class="text">Reports</span>
+</a>
+
+<div class="side-bottom">
+<a href="{{ url_for('admin_logout') }}" class="logout">
+<span>🚪</span><span class="text">Logout</span>
+</a>
+</div>
+</aside>
+
+
+<main class="main">
+
+<div class="head">
+<div>
+<h1>🕒 User Activity</h1>
+<p>Track login, logout, expense and application activity.</p>
+</div>
+<a class="logout-top" href="{{ url_for('admin_logout') }}">🚪 Logout</a>
+</div>
+
+
+<div class="stats">
+
+<div class="card">
+<div class="label">📝 Total Activities</div>
+<div class="num">{{ activities|length }}</div>
+</div>
+
+<div class="card">
+<div class="label">🔑 Login Activities</div>
+<div class="num">{{ activities|selectattr("action","equalto","Login")|list|length }}</div>
+</div>
+
+<div class="card">
+<div class="label">🚪 Logout Activities</div>
+<div class="num">{{ activities|selectattr("action","equalto","Logout")|list|length }}</div>
+</div>
+
+<div class="card">
+<div class="label">💰 Expense Activities</div>
+<div class="num">{{ activities|selectattr("action","equalto","Expense Added")|list|length }}</div>
+</div>
+
+</div>
+
+
+<section class="card">
+
+<div class="table-title">
+<h2>📋 Activity History</h2>
+<span>Latest 200 activities</span>
+</div>
+
+<div class="table-wrap">
+
+<table class="table">
+
+<tr>
+<th>ID</th>
+<th>User</th>
+<th>Activity</th>
+<th>Details</th>
+<th>Date & Time</th>
+</tr>
+
+{% for row in activities %}
+
+<tr>
+
+<td>{{ row["id"] }}</td>
+
+<td>
+{% if row["full_name"] %}
+<div class="user-name">{{ row["full_name"] }}</div>
+<div class="email">{{ row["email"] }}</div>
+{% else %}
+<span class="badge other">System</span>
+{% endif %}
+</td>
+
+<td>
+
+{% if row["action"] == "Login" %}
+<span class="badge login">🔑 Login</span>
+
+{% elif row["action"] == "Logout" %}
+<span class="badge logout-badge">🚪 Logout</span>
+
+{% elif row["action"] == "Expense Added" %}
+<span class="badge expense">💰 Expense Added</span>
+
+{% else %}
+<span class="badge other">{{ row["action"] }}</span>
+{% endif %}
+
+</td>
+
+<td>{{ row["details"] or "—" }}</td>
+
+<td>{{ row["created_at"] }}</td>
+
+</tr>
+
+{% else %}
+
+<tr>
+<td colspan="5" class="empty">
+🌱 No user activity has been recorded yet.
+</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+</section>
+
+
+<div class="footer">
+Personal Expense Tracker • Activity Center 💜
+</div>
+
+</main>
+</body>
+</html>

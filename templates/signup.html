@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Account | SpendWise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Poppins,sans-serif;background:#171329;color:#fff;min-height:100vh;overflow-x:hidden}
+body:before{content:"₹  $  €  £     🪙     ₹     $     💳     €     £     💵     ₹     $";position:fixed;inset:-10%;font-size:58px;line-height:2.2;letter-spacing:22px;word-spacing:20px;color:rgba(160,120,255,.12);transform:rotate(-12deg);z-index:0;pointer-events:none;white-space:normal}
+.page{min-height:100vh;display:flex;position:relative;z-index:1}.left{width:43%;padding:55px 7%;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(145deg,#211a3d,#171329)}.brand{font-size:27px;font-weight:800;color:#fff;margin-bottom:70px}.brand span{color:#9b7cff}.tag{font-size:44px;font-weight:800;line-height:1.12;margin-bottom:20px}.tag span{color:#9b7cff}.sub{color:#bbb3d5;line-height:1.8;max-width:470px}.money{margin-top:45px;display:flex;gap:12px;flex-wrap:wrap}.money b{padding:10px 16px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)}
+.right{width:57%;display:flex;align-items:center;justify-content:center;padding:35px 6%;background:rgba(9,7,19,.42)}.card{width:100%;max-width:540px;background:rgba(36,29,65,.92);border:1px solid rgba(155,124,255,.25);border-radius:28px;padding:38px;box-shadow:0 25px 70px rgba(0,0,0,.4)}h1{font-size:30px;margin-bottom:8px} .intro{color:#aaa2c2;font-size:14px;margin-bottom:26px}.form{display:grid;grid-template-columns:1fr 1fr;gap:17px}.full{grid-column:1/-1}.field label{display:block;font-size:12px;font-weight:600;color:#d5cee7;margin-bottom:7px}.field input{width:100%;padding:14px 15px;border-radius:13px;border:1px solid #453b61;background:#171329;color:#fff;outline:none;font-family:inherit}.field input:focus{border-color:#9b7cff;box-shadow:0 0 0 3px rgba(155,124,255,.1)}.password{position:relative}.password input{padding-right:48px}.toggle{position:absolute;right:8px;top:7px;border:0;background:transparent;color:#c9c0df;font-size:19px;cursor:pointer;padding:7px}.button{grid-column:1/-1;border:0;border-radius:14px;padding:15px;background:linear-gradient(135deg,#6c4df6,#9b7cff);color:#fff;font:700 15px Poppins;cursor:pointer;box-shadow:0 12px 28px rgba(108,77,246,.3)}.button:hover{transform:translateY(-1px)}.terms{grid-column:1/-1;color:#9189a8;font-size:11px;line-height:1.6;text-align:center}.bottom{text-align:center;margin-top:22px;color:#aaa2c2;font-size:13px}.bottom a,.back a{color:#a98eff;text-decoration:none;font-weight:600}.back{text-align:center;margin-top:13px;font-size:13px}.flash{margin-bottom:18px;padding:11px 14px;border-radius:12px;background:rgba(255,100,130,.1);border:1px solid rgba(255,100,130,.25);font-size:12px;color:#ffd6df}
+@media(max-width:850px){.page{display:block}.left,.right{width:100%}.left{padding:35px 7% 20px}.brand{margin-bottom:35px}.tag{font-size:34px}.money{margin-top:25px}.right{padding:25px 5% 40px}.card{padding:28px 22px}}
+@media(max-width:520px){.form{grid-template-columns:1fr}.full,.button,.terms{grid-column:auto}.left{padding-top:25px}.tag{font-size:29px}.sub{font-size:13px}.card{border-radius:22px}h1{font-size:26px}}
+</style>
+</head>
+<body>
+<div class="page">
+<section class="left">
+<div class="brand">Spend<span>Wise</span> 💜</div>
+<div class="tag">Start your <span>smarter money</span> journey. 💰</div>
+<p class="sub">Create your account and keep your expenses, budgets and spending habits beautifully organized in one place.</p>
+<div class="money"><b>₹ Track</b><b>$ Save</b><b>€ Plan</b><b>£ Grow</b></div>
+</section>
+<section class="right"><div class="card">
+<h1>Create your account ✨</h1><p class="intro">Join SpendWise and start tracking every rupee.</p>
+{% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}{% for category, message in messages %}<div class="flash">{{ message }}</div>{% endfor %}{% endif %}{% endwith %}
+<form class="form" method="POST" action="{{ url_for('signup') }}">
+<div class="field full"><label>Full Name</label><input type="text" name="full_name" placeholder="Enter your full name" required></div>
+<div class="field"><label>Mobile Number</label><input type="tel" name="mobile" placeholder="Enter mobile number"></div>
+<div class="field"><label>Email Address</label><input type="email" name="email" placeholder="you@example.com" required></div>
+<div class="field"><label>Password</label><div class="password"><input id="password" type="password" name="password" placeholder="Minimum 6 characters" minlength="6" required><button type="button" class="toggle" onclick="toggle('password',this)">👁</button></div></div>
+<div class="field"><label>Confirm Password</label><div class="password"><input id="confirm_password" type="password" name="confirm_password" placeholder="Repeat password" required><button type="button" class="toggle" onclick="toggle('confirm_password',this)">👁</button></div></div>
+<button class="button" type="submit">Create Account →</button>
+<div class="terms">By creating an account, you agree to use SpendWise responsibly and keep your login details secure.</div>
+</form>
+<div class="bottom">Already have an account? <a href="{{ url_for('login') }}">Login</a></div>
+<div class="back"><a href="{{ url_for('home') }}">← Back to Home</a></div>
+</div></section>
+</div>
+<script>function toggle(id,btn){const x=document.getElementById(id);if(x.type==='password'){x.type='text';btn.textContent='🙈'}else{x.type='password';btn.textContent='👁'}}</script>
+</body></html>

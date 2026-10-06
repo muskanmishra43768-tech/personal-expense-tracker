@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis | Personal Expense Tracker</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif}
+        body{background:#151126;color:#f7f4ff;min-height:100vh;overflow-x:hidden}
+
+        /* money watermark */
+        body:before{
+            content:"₹   $   €   £   ₹   $   €   £   ₹   $";
+            position:fixed;inset:0;z-index:-1;pointer-events:none;
+            font-size:92px;font-weight:800;line-height:2.1;
+            letter-spacing:25px;word-spacing:35px;
+            color:rgba(108,77,246,.055);
+            transform:rotate(-12deg) scale(1.15);
+            white-space:normal;
+        }
+        body:after{
+            content:"💰   🪙   ₹   💳   $   🪙   €   💵";
+            position:fixed;left:-40px;top:45%;z-index:-1;pointer-events:none;
+            font-size:60px;letter-spacing:22px;
+            color:rgba(54,190,151,.035);
+            transform:rotate(-8deg);
+        }
+
+        .sidebar{
+            position:fixed;left:0;top:0;width:250px;height:100vh;
+            background:#211b38;border-right:1px solid rgba(255,255,255,.07);
+            padding:24px 15px;display:flex;flex-direction:column;
+            z-index:1000;overflow-y:auto
+        }
+        .logo{text-align:center;margin-bottom:27px}
+        .logo-icon{
+            width:55px;height:55px;margin:auto;border-radius:17px;
+            background:linear-gradient(135deg,#6c4df6,#9a7cff);
+            display:flex;align-items:center;justify-content:center;
+            font-size:27px;box-shadow:0 8px 25px rgba(108,77,246,.35)
+        }
+        .logo h2{font-size:18px;margin-top:9px}
+        .logo p{font-size:10px;color:#aaa5bd}
+        .menu-title{color:#858099;font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:0 12px;margin:8px 0 9px}
+        .nav-menu{display:flex;flex-direction:column;gap:4px}
+        .nav-menu a{
+            text-decoration:none;color:#d8d4e6;padding:10px 12px;border-radius:10px;
+            display:flex;align-items:center;gap:11px;font-size:12px;font-weight:500;transition:.25s
+        }
+        .nav-menu a span{width:22px;text-align:center;font-size:16px}
+        .nav-menu a:hover{background:rgba(255,255,255,.07);color:#fff;transform:translateX(3px)}
+        .nav-menu a.active{background:#6c4df6;color:#fff;box-shadow:0 7px 18px rgba(108,77,246,.25)}
+        .sidebar-bottom{margin-top:auto;padding-top:18px}
+        .logout{display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;color:#ffb7b7;background:rgba(255,255,255,.06);padding:10px;border-radius:10px;font-size:11px;font-weight:600}
+
+        .main{margin-left:250px;min-height:100vh}
+        .topbar{
+            height:75px;background:rgba(21,17,38,.88);backdrop-filter:blur(14px);
+            border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;
+            justify-content:space-between;padding:0 38px;position:sticky;top:0;z-index:900
+        }
+        .topbar-left{display:flex;align-items:center;gap:12px}
+        .top-icon{width:38px;height:38px;border-radius:11px;background:#292044;color:#a795ff;display:flex;align-items:center;justify-content:center;font-size:18px}
+        .topbar h3{font-size:18px}
+        .topbar p{color:#918ca2;font-size:9px;margin-top:2px}
+        .profile-mini{display:flex;align-items:center;gap:9px}
+        .avatar{width:37px;height:37px;border-radius:50%;background:#30265a;color:#b8aaff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+        .profile-name{font-size:10px;font-weight:600}.profile-email{font-size:7px;color:#9690a3;margin-top:2px}
+        .mobile-menu{display:none;border:0;background:#292044;color:#a795ff;width:38px;height:38px;border-radius:9px;cursor:pointer;font-size:19px}
+
+        .content{padding:30px 38px}
+        .page-hero{
+            background:linear-gradient(135deg,#6c4df6,#8b68ff 55%,#5740c9);
+            border-radius:21px;padding:28px;position:relative;overflow:hidden;margin-bottom:22px;
+            box-shadow:0 15px 32px rgba(108,77,246,.2)
+        }
+        .page-hero:after{content:"₹";position:absolute;right:30px;top:-65px;font-size:240px;font-weight:800;color:rgba(255,255,255,.07);transform:rotate(-10deg)}
+        .hero-content{position:relative;z-index:2}.hero-badge{display:inline-block;padding:6px 12px;border-radius:20px;background:rgba(255,255,255,.15);font-size:9px;font-weight:600;margin-bottom:9px}
+        .page-hero h1{font-size:25px;margin-bottom:5px}.page-hero p{font-size:10px;color:#eeeaff}
+
+        .summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-bottom:21px}
+        .summary-card,.chart-card,.category-card,.empty-state{
+            background:rgba(31,25,54,.92);border:1px solid rgba(255,255,255,.07);border-radius:17px
+        }
+        .summary-card{padding:19px}.summary-icon{width:39px;height:39px;border-radius:11px;background:#2b2250;color:#a795ff;display:flex;align-items:center;justify-content:center;font-size:17px;margin-bottom:11px}
+        .summary-label{color:#918ca2;font-size:8px}.summary-value{font-size:21px;font-weight:800;margin-top:3px}.summary-note{color:#aaa5b7;font-size:7px;margin-top:3px}
+
+        .chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+        .chart-card{padding:22px}.chart-header{margin-bottom:17px}.chart-header h3{font-size:14px}.chart-header p{color:#9690a3;font-size:8px;margin-top:3px}
+        .chart-box{height:280px;position:relative}
+
+        .category-card{margin-top:18px;padding:22px}.category-card h3{font-size:14px}.category-card>p{color:#9690a3;font-size:8px;margin-top:3px;margin-bottom:18px}
+        .category-list{display:flex;flex-direction:column;gap:13px}
+        .category-row{display:grid;grid-template-columns:38px 1fr auto;gap:11px;align-items:center}
+        .category-icon{width:37px;height:37px;border-radius:10px;background:#2b2250;display:flex;align-items:center;justify-content:center;font-size:16px}
+        .category-name{font-size:9px;font-weight:600}.bar{height:6px;background:#2a2540;border-radius:10px;margin-top:6px;overflow:hidden}
+        .bar-fill{height:100%;width:0;background:linear-gradient(90deg,#6c4df6,#9b82ff);border-radius:10px;transition:width .6s ease}.category-total{font-size:10px;font-weight:700}
+
+        .empty-state{text-align:center;padding:40px 15px}.empty-icon{font-size:38px;margin-bottom:9px}.empty-state h3{font-size:14px}.empty-state p{color:#918ca2;font-size:9px;margin-top:5px}
+        .empty-button{display:inline-block;margin-top:14px;background:#6c4df6;color:white;text-decoration:none;padding:9px 16px;border-radius:9px;font-size:9px;font-weight:600}
+
+        .insight{margin-top:18px;background:linear-gradient(135deg,#211b38,#292044);border:1px solid rgba(255,255,255,.07);border-radius:17px;padding:21px;display:flex;align-items:center;gap:15px}
+        .insight-icon{width:43px;height:43px;border-radius:12px;background:#6c4df6;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0}
+        .insight h3{font-size:12px;margin-bottom:4px}.insight p{color:#c5c0d4;font-size:8px;line-height:1.7}
+        footer{text-align:center;color:#77718c;font-size:8px;padding:27px 0 8px;line-height:1.7}
+
+        @media(max-width:1000px){.chart-grid{grid-template-columns:1fr}.summary-grid{grid-template-columns:repeat(2,1fr)}}
+        @media(max-width:760px){
+            .sidebar{left:-260px;transition:.3s}.sidebar.show{left:0}.main{margin-left:0}.mobile-menu{display:block}
+            .topbar{padding:0 17px}.profile-email{display:none}.content{padding:20px 16px}.page-hero{padding:23px}.page-hero h1{font-size:22px}
+        }
+        @media(max-width:500px){
+            .summary-grid{grid-template-columns:1fr}.profile-name{display:none}.chart-card,.category-card{padding:17px}.chart-box{height:240px}.insight{align-items:flex-start}
+        }
+    </style>
+</head>
+
+<body>
+<aside class="sidebar" id="sidebar">
+    <div class="logo">
+        <div class="logo-icon">₹</div>
+        <h2>Expense Tracker</h2>
+        <p>Manage • Track • Save</p>
+    </div>
+
+    <div class="menu-title">Main Menu</div>
+    <nav class="nav-menu">
+        <a href="{{ url_for('dashboard') }}"><span>📊</span>Dashboard</a>
+        <a href="{{ url_for('add_expense') }}"><span>➕</span>Add Expense</a>
+        <a href="{{ url_for('expense_history') }}"><span>🧾</span>Expense History</a>
+        <a href="{{ url_for('analysis') }}" class="active"><span>📈</span>Analysis</a>
+        <a href="{{ url_for('budget') }}"><span>💰</span>Budget</a>
+        <a href="{{ url_for('reports') }}"><span>📑</span>Reports</a>
+    </nav>
+
+    <div class="menu-title">Account</div>
+    <nav class="nav-menu">
+        <a href="{{ url_for('profile') }}"><span>👤</span>Profile</a>
+        <a href="{{ url_for('settings') }}"><span>⚙️</span>Settings</a>
+        <a href="{{ url_for('about') }}"><span>ℹ️</span>About Us</a>
+        <a href="{{ url_for('contact') }}"><span>📩</span>Contact Us</a>
+    </nav>
+
+    <div class="sidebar-bottom">
+        <a href="{{ url_for('logout') }}" class="logout">🚪 Logout</a>
+    </div>
+</aside>
+
+<main class="main">
+    <header class="topbar">
+        <div class="topbar-left">
+            <button class="mobile-menu" onclick="toggleSidebar()">☰</button>
+            <div class="top-icon">📈</div>
+            <div>
+                <h3>Expense Analysis</h3>
+                <p>Understand where your money is going.</p>
+            </div>
+        </div>
+
+        <div class="profile-mini">
+            <div class="avatar">{{ (user['full_name'] or 'U')[0]|upper }}</div>
+            <div>
+                <div class="profile-name">{{ user['full_name'] or 'User' }}</div>
+                <div class="profile-email">{{ user['email'] }}</div>
+            </div>
+        </div>
+    </header>
+
+    <section class="content">
+        <div class="page-hero">
+            <div class="hero-content">
+                <div class="hero-badge">📊 Smart Financial Insights</div>
+                <h1>Understand Your Spending</h1>
+                <p>See your spending patterns clearly and find where your money is going.</p>
+            </div>
+        </div>
+
+        <div class="summary-grid">
+            <div class="summary-card">
+                <div class="summary-icon">💰</div>
+                <div class="summary-label">TOTAL SPENDING</div>
+                <div class="summary-value">₹{{ "%.2f"|format(total_expense or 0) }}</div>
+                <div class="summary-note">All recorded expenses</div>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-icon">🏷️</div>
+                <div class="summary-label">CATEGORIES</div>
+                <div class="summary-value">{{ category_data|length }}</div>
+                <div class="summary-note">Expense categories used</div>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-icon">📅</div>
+                <div class="summary-label">MONTHS TRACKED</div>
+                <div class="summary-value">{{ monthly_data|length }}</div>
+                <div class="summary-note">Months with recorded expenses</div>
+            </div>
+        </div>
+
+        {% if category_data or monthly_data %}
+        <div class="chart-grid">
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3>Spending by Category</h3>
+                    <p>See which categories use most of your money.</p>
+                </div>
+                <div class="chart-box"><canvas id="categoryChart"></canvas></div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3>Monthly Spending</h3>
+                    <p>Track how your spending changes over time.</p>
+                </div>
+                <div class="chart-box"><canvas id="monthlyChart"></canvas></div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="category-card">
+            <h3>Category Details</h3>
+            <p>A quick breakdown of your total spending.</p>
+
+            {% if category_data %}
+                {% set max_total = category_data[0]['total'] %}
+                <div class="category-list">
+                    {% for item in category_data %}
+                    <div class="category-row">
+                        <div class="category-icon">
+                            {% if item['category'] == 'Food' %}🍔
+                            {% elif item['category'] == 'Transport' %}🚗
+                            {% elif item['category'] == 'Shopping' %}🛍️
+                            {% elif item['category'] == 'Bills' %}🧾
+                            {% elif item['category'] == 'Entertainment' %}🎬
+                            {% elif item['category'] == 'Health' %}❤️
+                            {% elif item['category'] == 'Education' %}📚
+                            {% else %}💸{% endif %}
+                        </div>
+                        <div>
+                            <div class="category-name">{{ item['category'] or 'Other' }}</div>
+                            <div class="bar">
+                                <div class="bar-fill" data-width="{{ ((item['total'] / max_total) * 100) if max_total else 0 }}"></div>
+                            </div>
+                        </div>
+                        <div class="category-total">₹{{ "%.2f"|format(item['total'] or 0) }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <div class="empty-icon">📊</div>
+                    <h3>No Expense Data Yet</h3>
+                    <p>Add your first expense and your spending analysis will appear here.</p>
+                    <a href="{{ url_for('add_expense') }}" class="empty-button">➕ Add Expense</a>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="insight">
+            <div class="insight-icon">💡</div>
+            <div>
+                <h3>Smart Money Tip</h3>
+                <p>Keep an eye on your highest-spending category. Small changes there can make a surprisingly big difference to your monthly savings.</p>
+            </div>
+        </div>
+
+        <div id="categoryData" hidden>
+            {% for item in category_data %}
+            <div class="category-data-item" data-label="{{ item['category'] or 'Other' }}" data-value="{{ item['total'] or 0 }}"></div>
+            {% endfor %}
+        </div>
+
+        <div id="monthlyData" hidden>
+            {% for item in monthly_data %}
+            <div class="monthly-data-item" data-label="{{ item['month'] }}" data-value="{{ item['total'] or 0 }}"></div>
+            {% endfor %}
+        </div>
+
+        <footer>
+            Personal Expense Tracker © 2026<br>
+            Track Smart • Spend Wise • Save More 💜
+        </footer>
+    </section>
+</main>
+
+<script>
+function toggleSidebar(){
+    document.getElementById("sidebar").classList.toggle("show");
+}
+
+document.querySelectorAll(".bar-fill").forEach(bar=>{
+    bar.style.width=Math.min(Number(bar.dataset.width)||0,100)+"%";
+});
+
+const categoryLabels=[], categoryValues=[];
+document.querySelectorAll(".category-data-item").forEach(item=>{
+    categoryLabels.push(item.dataset.label);
+    categoryValues.push(Number(item.dataset.value)||0);
+});
+
+const monthlyLabels=[], monthlyValues=[];
+document.querySelectorAll(".monthly-data-item").forEach(item=>{
+    monthlyLabels.push(item.dataset.label);
+    monthlyValues.push(Number(item.dataset.value)||0);
+});
+
+if(categoryLabels.length){
+    new Chart(document.getElementById("categoryChart"),{
+        type:"doughnut",
+        data:{
+            labels:categoryLabels,
+            datasets:[{
+                data:categoryValues,
+                backgroundColor:["#6c4df6","#3d8bfd","#35c58b","#e4b34f","#ff7187","#8d70ff","#46b6c9","#a68cff"],
+                borderWidth:3,
+                borderColor:"#1f1936"
+            }]
+        },
+        options:{
+            responsive:true,maintainAspectRatio:false,
+            plugins:{
+                legend:{position:"bottom",labels:{color:"#d8d4e6",font:{family:"Poppins",size:9},padding:13,usePointStyle:true}},
+                tooltip:{callbacks:{label:c=>" ₹"+Number(c.raw).toLocaleString("en-IN",{minimumFractionDigits:2})}}
+            }
+        }
+    });
+}
+
+if(monthlyLabels.length){
+    new Chart(document.getElementById("monthlyChart"),{
+        type:"bar",
+        data:{
+            labels:monthlyLabels,
+            datasets:[{
+                label:"Monthly Expense",
+                data:monthlyValues,
+                backgroundColor:"#6c4df6",
+                borderRadius:7,
+                borderSkipped:false
+            }]
+        },
+        options:{
+            responsive:true,maintainAspectRatio:false,
+            scales:{
+                y:{beginAtZero:true,ticks:{color:"#9b95ad",font:{family:"Poppins",size:8},callback:v=>"₹"+Number(v).toLocaleString("en-IN")},grid:{color:"rgba(255,255,255,.06)"}},
+                x:{ticks:{color:"#9b95ad",font:{family:"Poppins",size:8}},grid:{display:false}}
+            },
+            plugins:{
+                legend:{display:false},
+                tooltip:{callbacks:{label:c=>" ₹"+Number(c.raw).toLocaleString("en-IN",{minimumFractionDigits:2})}}
+            }
+        }
+    });
+}
+
+document.querySelectorAll(".sidebar a").forEach(link=>{
+    link.addEventListener("click",()=>{
+        if(window.innerWidth<=760) document.getElementById("sidebar").classList.remove("show");
+    });
+});
+</script>
+</body>
+</html>

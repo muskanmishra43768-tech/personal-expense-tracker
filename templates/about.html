@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About Us | Personal Expense Tracker</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: #151126;
+            color: #f4f1ff;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: #211a36;
+            color: white;
+            padding: 24px 15px;
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 27px;
+        }
+
+        .logo-icon {
+            width: 55px;
+            height: 55px;
+            margin: auto;
+            border-radius: 17px;
+            background: #6c4df6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 27px;
+            box-shadow: 0 8px 20px rgba(108,77,246,0.35);
+        }
+
+        .logo h2 {
+            font-size: 18px;
+            margin-top: 9px;
+        }
+
+        .logo p {
+            font-size: 10px;
+            color: #aaa5bd;
+        }
+
+        .menu-title {
+            color: #858099;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0 12px;
+            margin: 8px 0 9px;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #d8d4e6;
+            padding: 10px 12px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            font-size: 12px;
+            font-weight: 500;
+            transition: 0.25s;
+        }
+
+        .nav-menu a span {
+            width: 22px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .nav-menu a:hover {
+            background: rgba(255,255,255,0.08);
+            color: white;
+            transform: translateX(3px);
+        }
+
+        .nav-menu a.active {
+            background: #6c4df6;
+            color: white;
+            box-shadow: 0 7px 18px rgba(108,77,246,0.25);
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+            padding-top: 18px;
+        }
+
+        .logout {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            color: #ffb7b7;
+            background: rgba(255,255,255,0.06);
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .logout:hover {
+            background: rgba(255,90,90,0.12);
+        }
+
+        /* ================= MAIN ================= */
+
+        .main {
+            margin-left: 250px;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        .topbar {
+            height: 75px;
+            background: white;
+            border-bottom: 1px solid #33294f;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 38px;
+            position: sticky;
+            top: 0;
+            z-index: 900;
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .topbar h3 {
+            font-size: 18px;
+        }
+
+        .topbar p {
+            color: #aaa3bc;
+            font-size: 9px;
+            margin-top: 2px;
+        }
+
+        .top-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 11px;
+            background: #2b2347;
+            color: #6c4df6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .mobile-menu {
+            display: none;
+            border: none;
+            background: #2b2347;
+            color: #6c4df6;
+            width: 38px;
+            height: 38px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-size: 19px;
+        }
+
+        /* ================= CONTENT ================= */
+
+        .content {
+            padding: 30px 38px 15px;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            background: linear-gradient(135deg, #6c4df6, #8970ff);
+            color: white;
+            border-radius: 23px;
+            padding: 42px;
+            position: relative;
+            overflow: hidden;
+            min-height: 275px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 16px 35px rgba(108,77,246,0.18);
+        }
+
+        .hero::before {
+            content: "₹";
+            position: absolute;
+            right: 25px;
+            top: -75px;
+            font-size: 300px;
+            font-weight: 800;
+            color: rgba(255,255,255,0.06);
+            transform: rotate(-10deg);
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            border: 40px solid rgba(255,255,255,0.06);
+            border-radius: 50%;
+            right: -100px;
+            bottom: -130px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 720px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.18);
+            font-size: 9px;
+            font-weight: 600;
+            margin-bottom: 13px;
+        }
+
+        .hero h1 {
+            font-size: 34px;
+            line-height: 1.25;
+            font-weight: 800;
+            margin-bottom: 11px;
+        }
+
+        .hero h1 span {
+            color: #ffe98a;
+        }
+
+        .hero p {
+            font-size: 11px;
+            line-height: 1.8;
+            color: #2b2347;
+            max-width: 650px;
+        }
+
+        /* ================= SECTION ================= */
+
+        .section-heading {
+            margin: 32px 0 16px;
+        }
+
+        .section-heading h2 {
+            font-size: 19px;
+        }
+
+        .section-heading p {
+            color: #aaa3bc;
+            font-size: 9px;
+            margin-top: 3px;
+        }
+
+        /* ================= ABOUT CARDS ================= */
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 0.7fr;
+            gap: 18px;
+        }
+
+        .about-card {
+            background: white;
+            border: 1px solid #33294f;
+            border-radius: 17px;
+            padding: 23px;
+        }
+
+        .about-card h3 {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .about-card p {
+            color: #777187;
+            font-size: 10px;
+            line-height: 1.9;
+        }
+
+        .highlight {
+            margin-top: 15px;
+            background: #f3f0ff;
+            border-left: 4px solid #6c4df6;
+            border-radius: 8px;
+            padding: 12px;
+            color: #5d5183;
+            font-size: 9px;
+            line-height: 1.7;
+        }
+
+        /* ================= MISSION ================= */
+
+        .mission-card {
+            background: #211a36;
+            color: white;
+            border-radius: 17px;
+            padding: 23px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission-card::after {
+            content: "✨";
+            position: absolute;
+            right: 15px;
+            bottom: 7px;
+            font-size: 65px;
+            opacity: 0.08;
+        }
+
+        .mission-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: #6c4df6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 13px;
+        }
+
+        .mission-card h3 {
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .mission-card p {
+            color: #c9c4d9;
+            font-size: 9px;
+            line-height: 1.8;
+        }
+
+        /* ================= FEATURES ================= */
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #33294f;
+            border-radius: 15px;
+            padding: 19px;
+            transition: 0.25s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px rgba(39,33,63,0.07);
+        }
+
+        .feature-icon {
+            width: 42px;
+            height: 42px;
+            background: #f0edff;
+            border-radius: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .feature-card h3 {
+            font-size: 11px;
+            margin-bottom: 5px;
+        }
+
+        .feature-card p {
+            color: #858096;
+            font-size: 8px;
+            line-height: 1.7;
+        }
+
+        /* ================= TECHNOLOGY ================= */
+
+        .tech-section {
+            background: white;
+            border: 1px solid #33294f;
+            border-radius: 17px;
+            padding: 22px;
+        }
+
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tech {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            background: #151126;
+            border: 1px solid #e6e1f5;
+            padding: 8px 12px;
+            border-radius: 9px;
+            font-size: 9px;
+            font-weight: 600;
+            color: #51466f;
+        }
+
+        /* ================= CTA ================= */
+
+        .cta {
+            margin-top: 25px;
+            background: linear-gradient(135deg, #2b2347, #f8f7ff);
+            border: 1px solid #ded8f7;
+            border-radius: 18px;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .cta h3 {
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+
+        .cta p {
+            color: #858096;
+            font-size: 9px;
+        }
+
+        .cta-button {
+            text-decoration: none;
+            background: #6c4df6;
+            color: white;
+            padding: 10px 17px;
+            border-radius: 9px;
+            font-size: 9px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .cta-button:hover {
+            background: #5b40d9;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            text-align: center;
+            color: #9791a5;
+            font-size: 8px;
+            padding: 28px 0 8px;
+            line-height: 1.7;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 1050px) {
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 760px) {
+
+            .sidebar {
+                left: -260px;
+                transition: 0.3s;
+            }
+
+            .sidebar.show {
+                left: 0;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .topbar {
+                padding: 0 17px;
+            }
+
+            .topbar-left {
+                gap: 8px;
+            }
+
+            .topbar h3 {
+                font-size: 14px;
+            }
+
+            .content {
+                padding: 20px 16px;
+            }
+
+            .hero {
+                padding: 28px 23px;
+            }
+
+            .hero h1 {
+                font-size: 27px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .cta {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 430px) {
+
+            .hero h1 {
+                font-size: 24px;
+            }
+
+            .about-card,
+            .mission-card,
+            .tech-section {
+                padding: 18px;
+            }
+        }
+
+    
+        .money-watermark {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+        .money-watermark span {
+            position: absolute;
+            font-size: clamp(75px, 12vw, 180px);
+            font-weight: 800;
+            opacity: .045;
+            transform: rotate(-18deg);
+        }
+        .money-watermark span:nth-child(1){left:3%;top:8%;color:#8b5cf6}
+        .money-watermark span:nth-child(2){right:6%;top:20%;color:#3b82f6;transform:rotate(14deg)}
+        .money-watermark span:nth-child(3){left:15%;bottom:11%;color:#22c55e;transform:rotate(10deg)}
+        .money-watermark span:nth-child(4){right:23%;bottom:5%;color:#f59e0b;transform:rotate(-9deg)}
+        .money-watermark span:nth-child(5){right:43%;top:43%;color:#ec4899;transform:rotate(8deg)}
+
+    </style>
+
+<style id="final-dark-override">
+html,body{background:#0d0a18 !important;color:#eeeaff !important;}
+body{background:#0d0a18 !important;}
+.sidebar{background:#141020 !important;border-color:#211a33 !important;}
+.main{background:#0d0a18 !important;}
+.topbar{background:#0f0b1b !important;border-color:#211a33 !important;}
+.content{background:transparent !important;}
+.hero,.about-card,.mission-card,.feature-card,.highlight,.section-card{
+    background:#151024 !important;
+    border-color:#27203b !important;
+    box-shadow:none !important;
+    color:#eeeaff !important;
+}
+.about-card p,.mission-card p,.feature-card p,.hero p,.section-heading p{
+    color:#777087 !important;
+}
+.about-card h3,.mission-card h3,.feature-card h3,.section-heading h2{
+    color:#eeeaff !important;
+}
+.hero h1{color:#eeeaff !important;}
+.hero h1 span{color:#a98cff !important;}
+.highlight{
+    background:#1b1530 !important;
+    border-left-color:#6c4df6 !important;
+}
+footer{color:#5f586f !important;}
+</style>
+
+</head>
+
+<body>
+    <div class="money-watermark" aria-hidden="true">
+        <span>₹</span><span>$</span><span>€</span><span>£</span><span>💳</span>
+    </div>
+
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                ₹
+            </div>
+
+            <h2>
+                Expense Tracker
+            </h2>
+
+            <p>
+                Manage • Track • Save
+            </p>
+
+        </div>
+
+
+        <div class="menu-title">
+            Main Menu
+        </div>
+
+
+        <nav class="nav-menu">
+
+            <a href="{{ url_for('dashboard') }}">
+                <span>📊</span>
+                Dashboard
+            </a>
+
+            <a href="{{ url_for('add_expense') }}">
+                <span>➕</span>
+                Add Expense
+            </a>
+
+            <a href="{{ url_for('expense_history') }}">
+                <span>🧾</span>
+                Expense History
+            </a>
+
+            <a href="{{ url_for('analysis') }}">
+                <span>📈</span>
+                Analysis
+            </a>
+
+            <a href="{{ url_for('budget') }}">
+                <span>💰</span>
+                Budget
+            </a>
+
+            <a href="{{ url_for('reports') }}">
+                <span>📑</span>
+                Reports
+            </a>
+
+        </nav>
+
+
+        <div class="menu-title">
+            Account
+        </div>
+
+
+        <nav class="nav-menu">
+
+            <a href="{{ url_for('profile') }}">
+                <span>👤</span>
+                Profile
+            </a>
+
+            <a href="{{ url_for('settings') }}">
+                <span>⚙️</span>
+                Settings
+            </a>
+
+            <a href="{{ url_for('about') }}" class="active">
+                <span>ℹ️</span>
+                About Us
+            </a>
+
+            <a href="{{ url_for('contact') }}">
+                <span>📩</span>
+                Contact Us
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a href="{{ url_for('logout') }}" class="logout">
+                🚪 Logout
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main">
+
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <div class="topbar-left">
+
+                <button
+                    class="mobile-menu"
+                    onclick="toggleSidebar()"
+                >
+                    ☰
+                </button>
+
+                <div class="top-icon">
+                    ℹ️
+                </div>
+
+                <div>
+
+                    <h3>
+                        About Us
+                    </h3>
+
+                    <p>
+                        Learn more about Personal Expense Tracker
+                    </p>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= CONTENT ================= -->
+
+        <section class="content">
+
+
+            <!-- HERO -->
+
+            <div class="hero">
+
+                <div class="hero-content">
+
+                    <div class="hero-badge">
+                        ✨ About Personal Expense Tracker
+                    </div>
+
+                    <h1>
+                        Your Money.
+                        <span>Your Control.</span>
+                    </h1>
+
+                    <p>
+                        Personal Expense Tracker is designed to make
+                        everyday money management simple, organized and
+                        understandable. It helps you record expenses,
+                        monitor your spending, manage budgets and gain
+                        a clearer picture of your financial habits.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- ABOUT + MISSION -->
+
+            <div class="section-heading">
+
+                <h2>
+                    Who We Are 💜
+                </h2>
+
+                <p>
+                    A simple approach to better expense management.
+                </p>
+
+            </div>
+
+
+            <div class="about-grid">
+
+
+                <div class="about-card">
+
+                    <h3>
+                        📖 About Personal Expense Tracker
+                    </h3>
+
+                    <p>
+                        Managing everyday expenses can become difficult
+                        when small purchases are not recorded or reviewed.
+                        Personal Expense Tracker provides one organized
+                        place where users can record their spending and
+                        understand their financial activity.
+                    </p>
+
+                    <p style="margin-top: 10px;">
+                        Instead of depending on scattered notes or
+                        remembering expenses manually, users can maintain
+                        their expense records, review their history,
+                        analyze categories and manage their monthly
+                        budget from a single dashboard.
+                    </p>
+
+                    <div class="highlight">
+                        💡 <strong>Our idea:</strong>
+                        When you understand where your money goes,
+                        it becomes easier to decide where it should go.
+                    </div>
+
+                </div>
+
+
+                <div class="mission-card">
+
+                    <div class="mission-icon">
+                        🎯
+                    </div>
+
+                    <h3>
+                        Our Mission
+                    </h3>
+
+                    <p>
+                        Our mission is to make personal expense tracking
+                        simple and accessible. We want users to build
+                        better financial awareness by tracking expenses,
+                        reviewing their habits and planning their budgets.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- FEATURES -->
+
+            <div class="section-heading">
+
+                <h2>
+                    What You Can Do 🚀
+                </h2>
+
+                <p>
+                    Useful features designed around your daily expenses.
+                </p>
+
+            </div>
+
+
+            <div class="features">
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        💸
+                    </div>
+
+                    <h3>
+                        Track Expenses
+                    </h3>
+
+                    <p>
+                        Record your expenses with important details
+                        such as amount, category, date, merchant and
+                        payment method.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        📊
+                    </div>
+
+                    <h3>
+                        Dashboard
+                    </h3>
+
+                    <p>
+                        Get a quick overview of your total spending,
+                        monthly expenses and recent transactions.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        📈
+                    </div>
+
+                    <h3>
+                        Expense Analysis
+                    </h3>
+
+                    <p>
+                        Understand spending patterns by reviewing
+                        expenses according to different categories.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        💰
+                    </div>
+
+                    <h3>
+                        Budget Management
+                    </h3>
+
+                    <p>
+                        Set a monthly budget and keep your spending
+                        goals organized.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        🧾
+                    </div>
+
+                    <h3>
+                        Expense History
+                    </h3>
+
+                    <p>
+                        Review your previously recorded transactions
+                        whenever you need them.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        📑
+                    </div>
+
+                    <h3>
+                        Reports
+                    </h3>
+
+                    <p>
+                        View useful summaries of your expense activity
+                        and spending categories.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- TECHNOLOGY -->
+
+            <div class="section-heading">
+
+                <h2>
+                    Technology Behind the Project 💻
+                </h2>
+
+                <p>
+                    Technologies used to build the Personal Expense Tracker.
+                </p>
+
+            </div>
+
+
+            <div class="tech-section">
+
+                <div class="tech-list">
+
+                    <div class="tech">
+                        🐍 Python
+                    </div>
+
+                    <div class="tech">
+                        🌶️ Flask
+                    </div>
+
+                    <div class="tech">
+                        🗄️ SQLite
+                    </div>
+
+                    <div class="tech">
+                        🌐 HTML
+                    </div>
+
+                    <div class="tech">
+                        🎨 CSS
+                    </div>
+
+                    <div class="tech">
+                        ⚡ JavaScript
+                    </div>
+
+                    <div class="tech">
+                        📊 Chart.js
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CTA -->
+
+            <div class="cta">
+
+                <div>
+
+                    <h3>
+                        Ready to take control of your expenses? 💜
+                    </h3>
+
+                    <p>
+                        Start recording your expenses and build better
+                        financial habits.
+                    </p>
+
+                </div>
+
+                <a
+                    href="{{ url_for('add_expense') }}"
+                    class="cta-button"
+                >
+                    ➕ Add Expense
+                </a>
+
+            </div>
+
+
+            <!-- FOOTER -->
+
+            <footer>
+
+                Personal Expense Tracker © 2026
+
+                <br>
+
+                Track Smart • Spend Wise • Save More 💜
+
+            </footer>
+
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+        function toggleSidebar() {
+
+            const sidebar =
+                document.getElementById("sidebar");
+
+            sidebar.classList.toggle("show");
+
+        }
+
+
+        document.querySelectorAll(".sidebar a").forEach(function(link) {
+
+            link.addEventListener("click", function() {
+
+                if (window.innerWidth <= 760) {
+
+                    document
+                        .getElementById("sidebar")
+                        .classList.remove("show");
+
+                }
+
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>
