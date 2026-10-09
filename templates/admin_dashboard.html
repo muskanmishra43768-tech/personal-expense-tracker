@@ -7,113 +7,57 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:"Poppins",sans-serif}
 body{background:#151126;color:#eeeaff;min-height:100vh;overflow-x:hidden;position:relative}
-body:before{
-content:"₹  $  €  £  🪙  ₹  💳  $  €  £  ₹  💵";
-position:fixed;inset:-50px;font-size:70px;font-weight:800;line-height:2.4;
-word-spacing:55px;letter-spacing:16px;color:rgba(108,77,246,.045);
-transform:rotate(-12deg);pointer-events:none;z-index:-1
-}
-.side{
-position:fixed;left:0;top:0;width:245px;height:100vh;background:#27213f;
-color:#fff;padding:25px 15px;display:flex;flex-direction:column;
-z-index:1000;border-right:1px solid rgba(255,255,255,.06)
-}
-.logo{text-align:center;margin-bottom:34px}
-.logo-icon{
-width:55px;height:55px;margin:auto;border-radius:17px;background:#6c4df6;
-display:flex;align-items:center;justify-content:center;font-size:25px;
-box-shadow:0 8px 20px rgba(108,77,246,.3)
-}
-.logo h2{font-size:18px;margin-top:9px}
-.logo p{font-size:10px;color:#aaa5bd}
-.menu-title{
-color:#858099;font-size:10px;text-transform:uppercase;letter-spacing:1px;
-padding:0 12px;margin:10px 0 9px
-}
-.side a{
-display:flex;align-items:center;gap:11px;color:#d8d4e6;text-decoration:none;
-padding:11px 12px;border-radius:10px;margin:3px 0;font-size:12px;transition:.2s
-}
-.side a:hover,.side a.active{background:#6c4df6;color:white}
-.side a span{width:22px;text-align:center;font-size:16px}
-.side-bottom{margin-top:auto}
-.logout{background:rgba(255,255,255,.06)!important;color:#ffb7b7!important;justify-content:center}
-
-.main{margin-left:245px;padding:30px;min-height:100vh}
-.head{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px;gap:20px}
-.head h1{font-size:27px;color:#f3efff}
-.head p{color:#8f879f;font-size:12px;margin-top:5px}
-.logout-top{
-background:#6c4df6;color:#fff;padding:10px 16px;border-radius:10px;
-text-decoration:none;font-size:11px;font-weight:600;
-box-shadow:0 7px 18px rgba(108,77,246,.22)
-}
-
+body:before{content:"₹  $  €  £  🪙  ₹  💳  $  €  £  ₹  💵";position:fixed;inset:-50px;font-size:70px;font-weight:800;line-height:2.4;word-spacing:55px;letter-spacing:16px;color:rgba(108,77,246,.045);transform:rotate(-12deg);pointer-events:none;z-index:-1}
+.side{position:fixed;left:0;top:0;width:245px;height:100vh;background:#27213f;color:#fff;padding:25px 15px;display:flex;flex-direction:column;z-index:1000;border-right:1px solid rgba(255,255,255,.06)}
+.logo{text-align:center;margin-bottom:34px}.logo-icon{width:55px;height:55px;margin:auto;border-radius:17px;background:#6c4df6;display:flex;align-items:center;justify-content:center;font-size:25px;box-shadow:0 8px 20px rgba(108,77,246,.3)}
+.logo h2{font-size:18px;margin-top:9px}.logo p{font-size:10px;color:#aaa5bd}
+.menu-title{color:#858099;font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:0 12px;margin:10px 0 9px}
+.side a{display:flex;align-items:center;gap:11px;color:#d8d4e6;text-decoration:none;padding:11px 12px;border-radius:10px;margin:3px 0;font-size:12px;transition:.2s}
+.side a:hover,.side a.active{background:#6c4df6;color:white}.side a span{width:22px;text-align:center;font-size:16px}
+.side-bottom{margin-top:auto}.logout{background:rgba(255,255,255,.06)!important;color:#ffb7b7!important;justify-content:center}
+.main{margin-left:245px;padding:30px;min-height:100vh}.head{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px;gap:20px}
+.head h1{font-size:27px;color:#f3efff}.head p{color:#8f879f;font-size:12px;margin-top:5px}
+.logout-top{background:#6c4df6;color:#fff;padding:10px 16px;border-radius:10px;text-decoration:none;font-size:11px;font-weight:600;box-shadow:0 7px 18px rgba(108,77,246,.22)}
 .cards{display:grid;grid-template-columns:repeat(5,1fr);gap:15px}
-.card{
-background:#211b37;border:1px solid rgba(255,255,255,.07);border-radius:17px;
-padding:20px;box-shadow:0 8px 25px rgba(0,0,0,.16)
-}
-.stat-card{position:relative;overflow:hidden}
-.stat-card:after{
-content:"₹";position:absolute;right:-8px;bottom:-25px;font-size:75px;
-color:rgba(108,77,246,.055);font-weight:800
-}
-.label{font-size:11px;color:#9790a7;position:relative;z-index:1}
-.num{font-size:27px;font-weight:700;color:#a998ff;margin-top:8px;position:relative;z-index:1}
+.card{background:#211b37;border:1px solid rgba(255,255,255,.07);border-radius:17px;padding:20px;box-shadow:0 8px 25px rgba(0,0,0,.16)}
+.stat-card{position:relative;overflow:hidden}.stat-card:after{content:"₹";position:absolute;right:-8px;bottom:-25px;font-size:75px;color:rgba(108,77,246,.055);font-weight:800}
+.label{font-size:11px;color:#9790a7;position:relative;z-index:1}.num{font-size:30px;font-weight:700;color:#a998ff;margin-top:8px;position:relative;z-index:1}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:22px}h2{color:#e9e4f7;font-size:17px;margin-bottom:15px}
+.table-wrap{max-height:370px;overflow:auto}.table{width:100%;border-collapse:collapse;font-size:11px}.table th,.table td{text-align:left;padding:11px 8px;border-bottom:1px solid rgba(255,255,255,.07);white-space:nowrap}.table th{color:#a998ff;background:#18132b;position:sticky;top:0}.table td{color:#c2bccf}
+.empty{text-align:center;color:#777087;padding:25px!important}.badge{display:inline-block;padding:4px 8px;border-radius:20px;background:rgba(108,77,246,.14);color:#b6a8ff;font-size:10px}
+.registered{margin-top:22px}.footer{text-align:center;color:#696277;font-size:10px;padding:25px 0 5px}
+@media(max-width:1100px){.cards{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:800px){.side{width:72px;padding:20px 9px}.logo h2,.logo p,.menu-title,.side a .text{display:none}.logo-icon{width:48px;height:48px}.side a{justify-content:center;padding:12px}.side a span{font-size:18px}.main{margin-left:72px;padding:20px}.grid{grid-template-columns:1fr}.cards{grid-template-columns:1fr 1fr}}
+@media(max-width:550px){.cards{grid-template-columns:1fr}.head{align-items:flex-start;flex-direction:column}.logout-top{align-self:stretch;text-align:center}.main{padding:15px}.card{padding:16px}.table{font-size:10px}}
 
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:22px}
-.full{margin-top:22px}
-h2{color:#e9e4f7;font-size:17px;margin-bottom:15px}
+/* Pastel redesign: visual styles only; Flask/Jinja markup and routes remain unchanged. */
+:root{color-scheme:light}
+body{background:linear-gradient(135deg,#fff8fb 0%,#fff3ed 32%,#f6f1ff 66%,#effaff 100%);color:#493d54}
+body:before{color:rgba(125,79,104,.075);font-size:64px;letter-spacing:15px;z-index:0}
+.side{background:linear-gradient(180deg,#fff0f6 0%,#f2edff 55%,#eaf8ff 100%);color:#59445f;border-right:1px solid #f0dce8;box-shadow:8px 0 28px rgba(121,84,112,.06)}
+.logo-icon{background:linear-gradient(135deg,#f7a9c8,#c8b5ff,#9edbea);color:#fff;box-shadow:0 8px 20px rgba(190,126,165,.22)}
+.logo h2{color:#57435f}.logo p{color:#927b91}
+.menu-title{color:#a27f9b}
+.side a{color:#6d5a70}
+.side a:hover,.side a.active{background:linear-gradient(100deg,#f6c5d9,#d8c9ff 60%,#c4eaf4);color:#55415f;box-shadow:0 6px 16px rgba(187,139,177,.16)}
+.logout{background:#ffe1e8!important;color:#9d5973!important}
+.main{position:relative;z-index:1}
+.head h1{color:#51405b}.head p{color:#907c93}
+.logout-top{background:linear-gradient(110deg,#eea9c7,#c3b2fa,#a6dce8);color:#fff;box-shadow:0 7px 18px rgba(185,139,189,.2)}
+.card{background:rgba(255,255,255,.84);border:1px solid #f0e2ed;border-radius:19px;box-shadow:0 10px 28px rgba(118,86,119,.08);backdrop-filter:blur(8px)}
+.stat-card:nth-child(5n+1){border-top:4px solid #f2b6d0}.stat-card:nth-child(5n+2){border-top:4px solid #c8b8f5}.stat-card:nth-child(5n+3){border-top:4px solid #a9dfe8}.stat-card:nth-child(5n+4){border-top:4px solid #f4c9a9}.stat-card:nth-child(5n+5){border-top:4px solid #b9dfc9}
+.stat-card:after{color:rgba(134,91,123,.09)}
+.label{color:#90798e}.num{color:#926d9e}
+h2{color:#5d4866}
+.table-wrap{border-radius:12px}.table th,.table td{border-bottom:1px solid #f1e6f0}.table th{color:#765a83;background:#f8effa}.table td{color:#66556c}.empty{color:#a18da5}.badge{background:#f4e8fb;color:#806091;border:1px solid #ead8f2}
+@media(max-width:800px){.side{background:linear-gradient(180deg,#fff0f6,#f1ebff,#e9f8ff)}.main{padding:20px}}
+@media(max-width:550px){.head h1{font-size:23px}.card{padding:16px}.table-wrap{max-width:100%}}
 
-.table-wrap{max-height:390px;overflow:auto}
-.table{width:100%;border-collapse:collapse;font-size:11px}
-.table th,.table td{
-text-align:left;padding:11px 8px;border-bottom:1px solid rgba(255,255,255,.07);
-white-space:nowrap
-}
-.table th{
-color:#a998ff;background:#18132b;position:sticky;top:0;z-index:2
-}
-.table td{color:#c2bccf}
-.empty{text-align:center;color:#777087;padding:25px!important}
-.badge{
-display:inline-block;padding:4px 8px;border-radius:20px;
-background:rgba(108,77,246,.14);color:#b6a8ff;font-size:10px
-}
-.money{color:#c3b6ff!important;font-weight:600}
-.verified{color:#8ee6b2!important}
-.not-verified{color:#ffb2b2!important}
-.footer{text-align:center;color:#696277;font-size:10px;padding:25px 0 5px}
-
-@media(max-width:1150px){
-.cards{grid-template-columns:repeat(3,1fr)}
-}
-@media(max-width:800px){
-.side{width:72px;padding:20px 9px}
-.logo h2,.logo p,.menu-title,.side a .text{display:none}
-.logo-icon{width:48px;height:48px}
-.side a{justify-content:center;padding:12px}
-.side a span{font-size:18px}
-.main{margin-left:72px;padding:20px}
-.grid{grid-template-columns:1fr}
-.cards{grid-template-columns:1fr 1fr}
-}
-@media(max-width:550px){
-.cards{grid-template-columns:1fr}
-.head{align-items:flex-start;flex-direction:column}
-.logout-top{align-self:stretch;text-align:center}
-.main{padding:15px}
-.card{padding:16px}
-.table{font-size:10px}
-}
 </style>
 </head>
-
 <body>
 
 <aside class="side">
@@ -124,264 +68,76 @@ background:rgba(108,77,246,.14);color:#b6a8ff;font-size:10px
 </div>
 
 <div class="menu-title">Admin Menu</div>
-
-<a href="{{ url_for('admin_dashboard') }}" class="active">
-<span>📊</span><span class="text">Overview</span>
-</a>
-
-<a href="{{ url_for('admin_users') }}">
-<span>👥</span><span class="text">Users</span>
-</a>
-
-<a href="{{ url_for('admin_expenses') }}">
-<span>💰</span><span class="text">Expenses</span>
-</a>
-
-<a href="{{ url_for('admin_activity') }}">
-<span>🕒</span><span class="text">Activity</span>
-</a>
-
-<a href="{{ url_for('admin_reports') }}">
-<span>📈</span><span class="text">Reports</span>
-</a>
+<a href="{{ url_for('admin_dashboard') }}" class="active"><span>📊</span><span class="text">Overview</span></a>
+<a href="{{ url_for('dashboard') }}"><span>🏠</span><span class="text">User Dashboard</span></a>
 
 <div class="side-bottom">
-<a href="{{ url_for('admin_logout') }}" class="logout">
-<span>🚪</span><span class="text">Logout</span>
-</a>
+<a href="{{ url_for('admin_logout') }}" class="logout"><span>🚪</span><span class="text">Logout</span></a>
 </div>
 </aside>
 
-
 <main class="main">
-
 <div class="head">
 <div>
 <h1>📊 Admin Dashboard</h1>
-<p>Monitor users, logins, expenses and application activity.</p>
+<p>Monitor users, logins and application activity.</p>
 </div>
-
 <a class="logout-top" href="{{ url_for('admin_logout') }}">🚪 Logout</a>
 </div>
 
-
-<!-- STAT CARDS -->
 <div class="cards">
-
-<div class="card stat-card">
-<div class="label">👥 Total Users</div>
-<div class="num">{{ total_users }}</div>
+<div class="card stat-card"><div class="label">👥 Total Users</div><div class="num">{{ total_users }}</div></div>
+<div class="card stat-card"><div class="label">🔑 Total Logins</div><div class="num">{{ total_logins }}</div></div>
+<div class="card stat-card"><div class="label">🧑‍💻 Users Who Logged In</div><div class="num">{{ unique_logins }}</div></div>
+<div class="card stat-card"><div class="label">🖱️ Interactions</div><div class="num">{{ total_interactions }}</div></div>
+<div class="card stat-card"><div class="label">📚 Study Plans</div><div class="num">{{ total_plans }}</div></div>
 </div>
 
-<div class="card stat-card">
-<div class="label">✅ Verified Users</div>
-<div class="num">{{ verified_users }}</div>
-</div>
-
-<div class="card stat-card">
-<div class="label">🔑 Total Logins</div>
-<div class="num">{{ total_logins }}</div>
-</div>
-
-<div class="card stat-card">
-<div class="label">🖱️ Interactions</div>
-<div class="num">{{ total_interactions }}</div>
-</div>
-
-<div class="card stat-card">
-<div class="label">💰 Total Expenses</div>
-<div class="num">₹{{ "%.2f"|format(total_expense|float) }}</div>
-</div>
-
-</div>
-
-
-<!-- USER ACTIVITY + RECENT ACTIVITY -->
 <div class="grid">
-
 <section class="card">
 <h2>👥 User Activity</h2>
-
 <div class="table-wrap">
 <table class="table">
-
-<tr>
-<th>User</th>
-<th>Logins</th>
-<th>Last Login</th>
-<th>Last Logout</th>
-<th>Last Seen</th>
-</tr>
-
+<tr><th>User</th><th>Interactions</th><th>Last Seen</th></tr>
 {% for row in user_activity %}
-<tr>
-<td>
-<strong>{{ row["full_name"] }}</strong><br>
-<small>{{ row["email"] }}</small>
-</td>
-
-<td><span class="badge">{{ row["login_count"] }}</span></td>
-
-<td>{{ row["last_login"] or "—" }}</td>
-<td>{{ row["last_logout"] or "—" }}</td>
-<td>{{ row["last_seen"] or "—" }}</td>
-</tr>
-
+<tr><td>{{ row["username"] }}</td><td><span class="badge">{{ row["interactions"] }}</span></td><td>{{ row["last_seen"] }}</td></tr>
 {% else %}
-<tr>
-<td colspan="5" class="empty">🌱 No user activity yet.</td>
-</tr>
+<tr><td colspan="3" class="empty">🌱 No activity yet.</td></tr>
 {% endfor %}
-
 </table>
 </div>
 </section>
-
 
 <section class="card">
 <h2>🕒 Recent Activity</h2>
-
 <div class="table-wrap">
 <table class="table">
-
-<tr>
-<th>User</th>
-<th>Activity</th>
-<th>Details</th>
-<th>Time</th>
-</tr>
-
+<tr><th>User</th><th>Activity</th><th>Page</th><th>Time</th></tr>
 {% for row in recent_activity %}
-<tr>
-
-<td>
-{% if row["full_name"] %}
-<strong>{{ row["full_name"] }}</strong><br>
-<small>{{ row["email"] }}</small>
+<tr><td>{{ row["username"] }}</td><td>{{ row["activity"] }}</td><td>{{ row["page"] }}</td><td>{{ row["created_at"] }}</td></tr>
 {% else %}
-<span class="badge">System</span>
-{% endif %}
-</td>
-
-<td><span class="badge">{{ row["action"] }}</span></td>
-
-<td>{{ row["details"] or "—" }}</td>
-
-<td>{{ row["created_at"] }}</td>
-
-</tr>
-
-{% else %}
-<tr>
-<td colspan="4" class="empty">✨ No recent activity.</td>
-</tr>
+<tr><td colspan="4" class="empty">✨ No recent activity.</td></tr>
 {% endfor %}
-
 </table>
 </div>
 </section>
-
 </div>
 
-
-<!-- USER EXPENSE SUMMARY -->
-<section class="card full">
-
-<h2>💰 User-wise Expense Summary</h2>
-
+<section class="card registered">
+<h2>📋 Registered Students</h2>
 <div class="table-wrap">
 <table class="table">
-
-<tr>
-<th>User</th>
-<th>Email</th>
-<th>Transactions</th>
-<th>Total Expense</th>
-</tr>
-
-{% for row in user_expense_summary %}
-<tr>
-
-<td><strong>{{ row["full_name"] }}</strong></td>
-
-<td>{{ row["email"] }}</td>
-
-<td>
-<span class="badge">{{ row["transactions"] }}</span>
-</td>
-
-<td class="money">
-₹{{ "%.2f"|format(row["total_expense"]|float) }}
-</td>
-
-</tr>
-
+<tr><th>ID</th><th>Username</th><th>Email</th><th>Role</th></tr>
+{% for user in users %}
+<tr><td>{{ user["id"] }}</td><td>{{ user["username"] }}</td><td>{{ user["email"] or "—" }}</td><td><span class="badge">{{ user["role"] }}</span></td></tr>
 {% else %}
-<tr>
-<td colspan="4" class="empty">💸 No expenses recorded yet.</td>
-</tr>
+<tr><td colspan="4" class="empty">👋 No students registered yet.</td></tr>
 {% endfor %}
-
 </table>
 </div>
-
 </section>
 
-
-<!-- REGISTERED USERS -->
-<section class="card full">
-
-<h2>📋 Registered Users</h2>
-
-<div class="table-wrap">
-<table class="table">
-
-<tr>
-<th>ID</th>
-<th>Name</th>
-<th>Email</th>
-<th>Verification</th>
-<th>Registered</th>
-</tr>
-
-{% for user in recent_users %}
-<tr>
-
-<td>{{ user["id"] }}</td>
-
-<td><strong>{{ user["full_name"] }}</strong></td>
-
-<td>{{ user["email"] }}</td>
-
-<td>
-{% if user["is_verified"] %}
-<span class="badge verified">Verified</span>
-{% else %}
-<span class="badge not-verified">Pending</span>
-{% endif %}
-</td>
-
-<td>{{ user["created_at"] }}</td>
-
-</tr>
-
-{% else %}
-<tr>
-<td colspan="5" class="empty">👋 No users registered yet.</td>
-</tr>
-{% endfor %}
-
-</table>
-</div>
-
-</section>
-
-
-<div class="footer">
-Personal Expense Tracker • Admin Control Center 💜
-</div>
-
+<div class="footer">Personal Expense Tracker • Admin Control Center 💜</div>
 </main>
-
 </body>
 </html>
