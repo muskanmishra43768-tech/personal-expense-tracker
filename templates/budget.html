@@ -71,6 +71,45 @@ footer{text-align:center;color:#77718c;font-size:8px;padding:27px 0 8px;line-hei
 @media(max-width:950px){.budget-layout{grid-template-columns:1fr}}
 @media(max-width:760px){.sidebar{left:-260px;transition:.3s}.sidebar.show{left:0}.main{margin-left:0}.mobile-menu{display:block}.topbar{padding:0 17px}.profile-email{display:none}.content{padding:20px 16px}.page-hero{padding:23px}.page-hero h1{font-size:22px}}
 @media(max-width:500px){.profile-name{display:none}.form-card,.history-card{padding:18px}.budget-item{grid-template-columns:42px 1fr}.budget-amount{grid-column:2;text-align:left}}
+
+/* ===== Pastel theme overrides: styling only ===== */
+:root{color-scheme:light}
+html{background:#fff8fc}
+body{background:linear-gradient(135deg,#fff8fc 0%,#fff7ef 48%,#f2fbff 100%) !important;color:#49384b !important}
+body:before{color:rgba(145,65,105,.10) !important}
+body:after{color:rgba(123,87,116,.09) !important}
+.sidebar{background:linear-gradient(180deg,#ffe8f1 0%,#f4eaff 52%,#e8f8f4 100%) !important;border-right:1px solid #efd9e8 !important;box-shadow:5px 0 24px rgba(117,76,105,.06)}
+.logo-icon{background:linear-gradient(135deg,#f3a9c9,#c9b4f6,#a9e2d1) !important;box-shadow:0 8px 20px rgba(177,112,157,.2) !important;color:#503b55 !important}
+.logo h2,.topbar h3{color:#4b3650 !important}
+.logo p,.menu-title,.topbar p{color:#8b718c !important}
+.nav-menu a{color:#69556e !important}
+.nav-menu a:hover,.nav-menu a.active{background:linear-gradient(100deg,#f8cfe0,#e6dafa,#d7f2e9) !important;color:#4d3553 !important}
+.nav-menu a.active{box-shadow:inset 3px 0 #cf8eb5 !important}
+.logout{color:#a34e79 !important}
+.main{background:transparent !important}
+.topbar{background:rgba(255,255,255,.82) !important;border-bottom:1px solid #f0dfeb !important;backdrop-filter:blur(12px)}
+.top-icon{background:#f9dfeb !important;color:#8c5278 !important}
+.content{color:#49384b !important}
+.page-hero{background:linear-gradient(120deg,#ffe4ef 0%,#f0e8ff 53%,#e0f7f0 100%) !important;border:1px solid #f0dbea !important;box-shadow:0 12px 30px rgba(150,101,138,.08) !important}
+.page-hero h1,.page-hero h2,.page-hero h3{color:#49364f !important}
+.page-hero p,.page-hero .subtitle{color:#806985 !important}
+.card,.form-card,.history-card,.budget-card,.budget-item,.budget-layout>div,.summary-card{background:rgba(255,255,255,.94) !important;border:1px solid #f0dfeb !important;box-shadow:0 8px 25px rgba(129,85,119,.07) !important;color:#49384b !important}
+.card h3,.form-card h3,.history-card h3,.budget-item h3,.summary-value,.summary-label{color:#503b55 !important}
+label,.form-label{color:#705a76 !important}
+input,select,textarea{background:#fffafd !important;color:#49384b !important;border:1px solid #ead8e7 !important;border-radius:10px !important}
+input:focus,select:focus,textarea:focus{border-color:#d59abd !important;box-shadow:0 0 0 3px rgba(213,154,189,.18) !important;outline:none}
+button,.btn,.primary-btn,.save-button{background:linear-gradient(110deg,#e9a9c8,#c6b4f2,#a8dfd0) !important;color:#4b3650 !important;border:0 !important;box-shadow:0 7px 16px rgba(178,119,160,.15) !important}
+button:hover,.btn:hover,.primary-btn:hover,.save-button:hover{filter:brightness(.98);transform:translateY(-1px)}
+.secondary-btn,.cancel-button{background:#f7edf5 !important;color:#765c79 !important;border:1px solid #ead8e7 !important}
+.budget-item:nth-child(4n+1) .budget-icon,.budget-icon{background:#fbe1ed !important;color:#a65f85 !important}
+.budget-item:nth-child(4n+2) .budget-icon{background:#e9e1fb !important;color:#7960a5 !important}
+.budget-item:nth-child(4n+3) .budget-icon{background:#ddf4eb !important;color:#4b927c !important}
+.budget-item:nth-child(4n) .budget-icon{background:#ffeddc !important;color:#a97949 !important}
+.progress,.progress-track,.budget-progress{background:#f1e8f0 !important}
+.progress-bar,.progress-fill{background:linear-gradient(90deg,#eaa9c8,#c6b4f2,#a8dfd0) !important}
+footer{color:#947d94 !important}
+@media(prefers-color-scheme:dark){body{background:linear-gradient(135deg,#fff8fc 0%,#fff7ef 48%,#f2fbff 100%) !important;color:#49384b !important}}
+
 </style>
 </head>
 
