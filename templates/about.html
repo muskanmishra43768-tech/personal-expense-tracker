@@ -598,32 +598,76 @@
 
     </style>
 
-<style id="final-dark-override">
-html,body{background:#0d0a18 !important;color:#eeeaff !important;}
-body{background:#0d0a18 !important;}
-.sidebar{background:#141020 !important;border-color:#211a33 !important;}
-.main{background:#0d0a18 !important;}
-.topbar{background:#0f0b1b !important;border-color:#211a33 !important;}
-.content{background:transparent !important;}
-.hero,.about-card,.mission-card,.feature-card,.highlight,.section-card{
-    background:#151024 !important;
-    border-color:#27203b !important;
-    box-shadow:none !important;
-    color:#eeeaff !important;
+<style id="final-pink-override">
+/* Pink theme override: visual styling only; routes and page functionality stay unchanged */
+html, body {
+    background: #fff4f8 !important;
+    color: #573746 !important;
 }
-.about-card p,.mission-card p,.feature-card p,.hero p,.section-heading p{
-    color:#777087 !important;
+body { background: #fff4f8 !important; }
+.sidebar {
+    background: linear-gradient(180deg, #ffd9e7, #ffeaf1) !important;
+    color: #743b55 !important;
+    border-right: 1px solid #f4bfd3 !important;
 }
-.about-card h3,.mission-card h3,.feature-card h3,.section-heading h2{
-    color:#eeeaff !important;
+.sidebar a { color: #743b55 !important; }
+.sidebar a:hover, .sidebar a.active {
+    background: #f7a9c8 !important;
+    color: #ffffff !important;
+    border-radius: 12px;
 }
-.hero h1{color:#eeeaff !important;}
-.hero h1 span{color:#a98cff !important;}
-.highlight{
-    background:#1b1530 !important;
-    border-left-color:#6c4df6 !important;
+.main { background: #fff4f8 !important; }
+.topbar {
+    background: rgba(255,255,255,.92) !important;
+    border-color: #f4c8d9 !important;
+    color: #573746 !important;
 }
-footer{color:#5f586f !important;}
+.content { background: transparent !important; }
+.hero, .about-card, .mission-card, .feature-card, .section-card {
+    background: #ffffff !important;
+    border: 1px solid #f5c5d8 !important;
+    box-shadow: 0 10px 28px rgba(191, 89, 132, .10) !important;
+    color: #573746 !important;
+    border-radius: 20px;
+}
+.hero-badge {
+    background: #ffe1ec !important;
+    color: #b54478 !important;
+    border: 1px solid #f6bfd5 !important;
+}
+.hero h1, .about-card h3, .mission-card h3, .feature-card h3,
+.section-heading h2 { color: #873b60 !important; }
+.hero h1 span { color: #e45b98 !important; }
+.about-card p, .mission-card p, .feature-card p, .hero p,
+.section-heading p { color: #795d6b !important; }
+.highlight {
+    background: #fff0f6 !important;
+    border-left: 4px solid #e76ca4 !important;
+    color: #74445a !important;
+    border-radius: 10px;
+}
+.mission-icon, .tech {
+    background: #ffe3ee !important;
+    color: #b54478 !important;
+    border-color: #f5c2d7 !important;
+}
+.cta {
+    background: linear-gradient(135deg, #f7a6c7, #f9c9dc) !important;
+    color: #6f304c !important;
+    border: 1px solid #f2b2ce !important;
+    border-radius: 20px;
+}
+.cta h3, .cta p { color: #6f304c !important; }
+button, .btn, .cta a {
+    background: #e76ca4 !important;
+    color: #ffffff !important;
+    border-color: #e76ca4 !important;
+}
+button:hover, .btn:hover, .cta a:hover { background: #cf4d89 !important; }
+footer { color: #a16d84 !important; }
+@media (max-width: 768px) {
+    .sidebar { border-right: none !important; }
+}
 </style>
 
 </head>
