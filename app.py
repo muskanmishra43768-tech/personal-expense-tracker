@@ -31,7 +31,7 @@ load_dotenv()
 # FLASK APP
 # =========================================================
 
-app = Flask(__name__, template_folder=".")
+app = Flask(__name__, template_folder="templates")
 
 app.secret_key = os.getenv(
     "SECRET_KEY",
