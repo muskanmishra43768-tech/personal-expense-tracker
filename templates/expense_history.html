@@ -911,6 +911,67 @@
         }
 
 
+    
+
+        /* Pastel girly theme overrides — visual styling only */
+        body {
+            background: radial-gradient(circle at 12% 15%, rgba(255,190,210,.30), transparent 28%),
+                        radial-gradient(circle at 88% 30%, rgba(255,213,180,.26), transparent 25%),
+                        radial-gradient(circle at 70% 90%, rgba(183,232,218,.24), transparent 25%), #fffafc !important;
+            color: #514451 !important;
+        }
+        body::before { color: rgba(126,57,96,.12) !important; }
+        body::after { color: rgba(105,127,164,.11) !important; }
+        .sidebar {
+            background: linear-gradient(180deg,#ffe5ee 0%,#f4e9ff 55%,#e4f7f1 100%) !important;
+            color: #584657 !important; border-right: 1px solid #f1dce8;
+            box-shadow: 5px 0 22px rgba(130,80,110,.07);
+        }
+        .logo { color: #65475d !important; }
+        .logo span { color: #c35f8b !important; }
+        .menu-title { color: #9c718d !important; }
+        .nav-link { color: #765c72 !important; }
+        .nav-link:hover { background: rgba(255,255,255,.72) !important; color: #9b4774 !important; }
+        .nav-link.active { background: linear-gradient(135deg,#e99aba,#d5b8ef) !important; color: #fff !important; box-shadow: 0 6px 16px rgba(195,95,139,.22) !important; }
+        .main { color: #514451 !important; }
+        .topbar { background: rgba(255,255,255,.88) !important; border-bottom: 1px solid #f1e3eb !important; box-shadow: 0 4px 18px rgba(110,70,95,.04); }
+        .topbar-title h2, .page-header h1, .history-title { color: #65475d !important; }
+        .topbar-title p, .page-header p, .history-subtitle, .summary-label { color: #987e91 !important; }
+        .content { position: relative; }
+        .summary-card, .history-card, .filter-card, .table-card {
+            background: rgba(255,255,255,.94) !important; color: #594858 !important;
+            border: 1px solid #f3e1eb !important; border-radius: 20px !important;
+            box-shadow: 0 9px 26px rgba(133,83,112,.07) !important;
+        }
+        .summary-card:nth-child(4n+1) .summary-icon { background:#ffe3ec !important; color:#b85683 !important; }
+        .summary-card:nth-child(4n+2) .summary-icon { background:#ffeadc !important; color:#bd8056 !important; }
+        .summary-card:nth-child(4n+3) .summary-icon { background:#e4f6ef !important; color:#4b9b80 !important; }
+        .summary-card:nth-child(4n+4) .summary-icon { background:#eee5ff !important; color:#8868b9 !important; }
+        .summary-value { color: #65475d !important; }
+        .add-button, button, .pagination a, .pagination button {
+            border-radius: 12px !important; transition: .2s ease;
+        }
+        .add-button { background: linear-gradient(135deg,#e99aba,#d7b8ef) !important; color:#fff !important; box-shadow:0 6px 14px rgba(195,95,139,.18); }
+        .history-header { border-bottom: 1px solid #f3e5ed !important; }
+        .count-badge { background:#ffe7ef !important; color:#ad527d !important; }
+        .table-wrapper { border-radius: 14px; }
+        table { background: #fff !important; color:#594858 !important; }
+        thead, th { background:#fff0f5 !important; color:#865b77 !important; }
+        th, td { border-color:#f4e7ee !important; }
+        tbody tr:nth-child(even) { background:#fffafd !important; }
+        tbody tr:hover { background:#fff1f6 !important; }
+        .category-badge { border-radius:999px !important; }
+        input, select, textarea { background:#fffafd !important; color:#594858 !important; border-color:#ead7e3 !important; border-radius:11px !important; }
+        input:focus, select:focus, textarea:focus { border-color:#d991b2 !important; box-shadow:0 0 0 3px rgba(217,145,178,.16) !important; outline:none; }
+        .pagination .active, .page-number.active { background:#e99aba !important; color:white !important; }
+        .mobile-menu { color:#a9517d !important; }
+        @media (prefers-color-scheme: dark) {
+            body { background: radial-gradient(circle at 12% 15%, rgba(255,190,210,.30), transparent 28%), radial-gradient(circle at 88% 30%, rgba(255,213,180,.26), transparent 25%), #fffafc !important; color:#514451 !important; }
+            .sidebar { background:linear-gradient(180deg,#ffe5ee 0%,#f4e9ff 55%,#e4f7f1 100%) !important; color:#584657 !important; }
+            .topbar, .summary-card, .history-card, table, tbody, tr, td { background-color:#fff !important; color:#594858 !important; }
+            thead, th { background:#fff0f5 !important; color:#865b77 !important; }
+        }
+
     </style>
 
 </head>
