@@ -1,24 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <title>Create Account | SpendWise</title>
 
-    <title>Reset Password | Personal Expense Tracker</title>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet"
-    >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
-
         * {
             margin: 0;
             padding: 0;
@@ -26,1323 +18,979 @@
         }
 
         body {
-
-            min-height: 100vh;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            padding: 25px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #f6f4ff,
-                    #eeeaff
-                );
-
             font-family: "Poppins", sans-serif;
-
+            min-height: 100vh;
+            background: #f6f4ff;
             color: #27213f;
         }
 
-
-        /* =========================
-           MAIN CONTAINER
-        ========================= */
-
-        .reset-container {
-
-            width: 100%;
-            max-width: 1050px;
-
-            min-height: 650px;
-
-            display: grid;
-
-            grid-template-columns: 1fr 1fr;
-
-            background: white;
-
-            border-radius: 28px;
-
-            overflow: hidden;
-
-            box-shadow:
-                0 25px 70px rgba(39, 33, 63, 0.15);
+        a {
+            text-decoration: none;
         }
 
-
-        /* =========================
-           LEFT PANEL
-        ========================= */
-
-        .left-panel {
-
-            position: relative;
-
+        .page {
+            min-height: 100vh;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
+        }
 
-            padding: 60px;
+        /* ================= LEFT SECTION ================= */
 
-            background:
-                linear-gradient(
-                    145deg,
-                    #27213f,
-                    #3b3261
-                );
-
+        .left-section {
+            width: 45%;
+            min-height: 100vh;
+            background: linear-gradient(145deg, #27213f, #3d3267);
             color: white;
-
+            padding: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
             overflow: hidden;
         }
 
-
-        .left-panel::before {
-
+        .left-section::before {
             content: "₹";
-
             position: absolute;
-
-            right: -30px;
-            top: -55px;
-
-            font-size: 280px;
-
+            right: -60px;
+            bottom: -110px;
+            font-size: 400px;
             font-weight: 800;
-
             color: rgba(255,255,255,0.035);
         }
 
-
-        .left-panel::after {
-
-            content: "₹";
-
+        .left-section::after {
+            content: "";
             position: absolute;
-
-            left: -50px;
-            bottom: -100px;
-
-            font-size: 330px;
-
-            font-weight: 800;
-
-            color: rgba(255,255,255,0.025);
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: rgba(108,77,246,0.18);
+            top: -100px;
+            left: -100px;
         }
-
-
-        /* =========================
-           LOGO
-        ========================= */
-
-        .logo {
-
-            position: absolute;
-
-            top: 35px;
-            left: 50px;
-
-            font-size: 18px;
-
-            font-weight: 700;
-
-            z-index: 2;
-        }
-
-
-        .logo span {
-
-            color: #a993ff;
-        }
-
-
-        /* =========================
-           LEFT CONTENT
-        ========================= */
 
         .left-content {
-
+            max-width: 500px;
             position: relative;
-
             z-index: 2;
         }
 
+        /* LOGO */
 
-        .lock-icon {
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 55px;
+        }
 
-            width: 72px;
-            height: 72px;
-
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: #6c4df6;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-
-            margin-bottom: 28px;
-
-            border-radius: 20px;
-
-            background: rgba(255,255,255,0.10);
-
-            border:
-                1px solid
-                rgba(255,255,255,0.12);
-
-            font-size: 34px;
+            font-size: 23px;
+            font-weight: 700;
+            box-shadow: 0 10px 25px rgba(108,77,246,0.35);
         }
 
+        .logo h2 {
+            font-size: 20px;
+        }
+
+        .logo p {
+            font-size: 10px;
+            color: #bcb7d2;
+        }
 
         .left-content h1 {
-
+            font-size: 40px;
+            line-height: 1.2;
             margin-bottom: 18px;
-
-            font-size: 39px;
-
-            line-height: 1.25;
-
-            font-weight: 700;
         }
-
 
         .left-content h1 span {
-
-            color: #a993ff;
+            color: #a797ff;
         }
 
-
-        .left-content p {
-
-            max-width: 410px;
-
-            color:
-                rgba(255,255,255,0.72);
-
-            font-size: 14px;
-
-            line-height: 1.9;
+        .left-content > p {
+            color: #c8c4d7;
+            font-size: 13px;
+            line-height: 1.8;
+            max-width: 440px;
         }
 
+        /* BENEFITS */
 
-        /* =========================
-           SECURITY POINTS
-        ========================= */
-
-        .security-points {
-
-            margin-top: 35px;
-
+        .benefits {
+            margin-top: 32px;
             display: flex;
             flex-direction: column;
-
-            gap: 14px;
+            gap: 13px;
         }
 
-
-        .security-point {
-
+        .benefit {
             display: flex;
             align-items: center;
-
             gap: 12px;
+            font-size: 12px;
+            color: #ddd9e9;
+        }
 
-            color:
-                rgba(255,255,255,0.82);
-
+        .check {
+            width: 27px;
+            height: 27px;
+            border-radius: 8px;
+            background: rgba(108,77,246,0.25);
+            color: #b6aaff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 13px;
         }
 
+        /* ================= RIGHT SECTION ================= */
 
-        .check {
-
-            width: 25px;
-            height: 25px;
-
+        .right-section {
+            width: 55%;
+            min-height: 100vh;
+            background: #f6f4ff;
             display: flex;
             align-items: center;
             justify-content: center;
-
-            border-radius: 50%;
-
-            background:
-                rgba(169,147,255,0.15);
-
-            color: #b7a6ff;
-
-            font-size: 12px;
+            padding: 30px;
         }
 
-
-        /* =========================
-           RIGHT PANEL
-        ========================= */
-
-        .right-panel {
-
-            display: flex;
-
-            align-items: center;
-            justify-content: center;
-
-            padding: 55px;
-
-            background: #ffffff;
-        }
-
-
-        .reset-box {
-
+        .signup-wrapper {
             width: 100%;
-
-            max-width: 410px;
-
-            text-align: center;
+            max-width: 500px;
         }
 
+        /* MOBILE LOGO */
 
-        /* =========================
-           ICON
-        ========================= */
-
-        .reset-icon {
-
-            width: 76px;
-            height: 76px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            margin: 0 auto 22px;
-
-            border-radius: 22px;
-
-            background: #f0ecff;
-
-            color: #6c4df6;
-
-            font-size: 34px;
+        .mobile-logo {
+            display: none;
         }
 
+        /* CARD */
 
-        /* =========================
-           HEADING
-        ========================= */
+        .signup-card {
+            background: white;
+            border: 1px solid #ebe8f5;
+            border-radius: 24px;
+            padding: 36px 40px;
+            box-shadow: 0 20px 50px rgba(39,33,63,0.08);
+        }
 
-        .reset-box h2 {
+        .signup-heading {
+            margin-bottom: 24px;
+        }
 
-            margin-bottom: 10px;
-
-            font-size: 29px;
-
+        .signup-heading h2 {
+            font-size: 26px;
             font-weight: 700;
-
             color: #27213f;
         }
 
-
-        .subtitle {
-
-            margin-bottom: 27px;
-
-            color: #888;
-
-            font-size: 13px;
-
-            line-height: 1.8;
+        .signup-heading p {
+            font-size: 11px;
+            color: #8c879f;
+            margin-top: 5px;
         }
 
+        /* FLASH */
 
-        /* =========================
-           FLASH MESSAGE
-        ========================= */
+        .flash-container {
+            margin-bottom: 17px;
+        }
 
         .flash-message {
-
-            margin-bottom: 20px;
-
-            padding: 12px 15px;
-
-            border-radius: 12px;
-
-            font-size: 12px;
-
-            text-align: left;
+            padding: 10px 13px;
+            border-radius: 9px;
+            background: #fff2f2;
+            color: #c53d3d;
+            border: 1px solid #ffd5d5;
+            font-size: 11px;
+            margin-bottom: 7px;
         }
 
+        /* FORM */
 
-        .flash-message.success {
-
-            background: #eafaf0;
-
-            color: #23844b;
-
-            border:
-                1px solid
-                #c8efd7;
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 13px;
         }
-
-
-        .flash-message.error {
-
-            background: #fff0f0;
-
-            color: #c93636;
-
-            border:
-                1px solid
-                #ffd2d2;
-        }
-
-
-        .flash-message.warning {
-
-            background: #fff8e7;
-
-            color: #9a7100;
-
-            border:
-                1px solid
-                #ffe7a6;
-        }
-
-
-        .flash-message.info {
-
-            background: #eef5ff;
-
-            color: #3765a8;
-
-            border:
-                1px solid
-                #d4e4ff;
-        }
-
-
-        /* =========================
-           FORM GROUP
-        ========================= */
 
         .form-group {
-
-            margin-bottom: 18px;
-
-            text-align: left;
+            margin-bottom: 16px;
         }
-
 
         .form-group label {
-
             display: block;
-
-            margin-bottom: 8px;
-
-            color: #3c3654;
-
-            font-size: 12px;
-
+            font-size: 10px;
             font-weight: 600;
+            color: #4d4668;
+            margin-bottom: 6px;
         }
 
-
-        .input-wrapper {
-
+        .input-box {
             position: relative;
         }
 
-
         .input-icon {
-
             position: absolute;
-
-            left: 15px;
-
+            left: 12px;
             top: 50%;
-
-            transform:
-                translateY(-50%);
-
-            color: #999;
-
-            font-size: 16px;
-
-            z-index: 2;
+            transform: translateY(-50%);
+            color: #938da8;
+            font-size: 14px;
+            pointer-events: none;
         }
 
-
-        .form-control {
-
+        .input-box input {
             width: 100%;
-
-            height: 52px;
-
-            padding:
-                0 48px 0 45px;
-
-            border:
-                1px solid
-                #e4e1ee;
-
-            border-radius: 13px;
-
+            height: 44px;
+            border: 1px solid #ded9ed;
+            border-radius: 9px;
+            padding: 0 38px;
             outline: none;
-
-            background: #faf9fd;
-
-            color: #27213f;
-
-            font-family: "Poppins", sans-serif;
-
-            font-size: 13px;
-
+            font-family: inherit;
+            font-size: 11px;
+            color: #332c4c;
+            background: white;
             transition: 0.25s;
         }
 
-
-        .form-control:focus {
-
+        .input-box input:focus {
             border-color: #6c4df6;
-
-            background: white;
-
-            box-shadow:
-                0 0 0 4px
-                rgba(108,77,246,0.08);
+            box-shadow: 0 0 0 3px rgba(108,77,246,0.09);
         }
 
-
-        .form-control::placeholder {
-
-            color: #aaa;
+        .input-box input::placeholder {
+            color: #aaa5b7;
         }
 
+        .password-toggle {
+            position: absolute;
+            right: 11px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            color: #938da8;
+            font-size: 13px;
+        }
 
-        /* =========================
-           OTP FIELD
-        ========================= */
+        .password-toggle:hover {
+            color: #6c4df6;
+        }
 
-        .otp-input {
+        /* PASSWORD STRENGTH */
 
+        .password-strength {
+            display: none;
+            margin-top: 7px;
+        }
+
+        .strength-bar {
+            height: 4px;
+            width: 100%;
+            background: #ece9f5;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .strength-fill {
+            height: 100%;
+            width: 0;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .strength-text {
+            margin-top: 4px;
+            font-size: 9px;
+            color: #89839a;
+        }
+
+        /* TERMS */
+
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin: 3px 0 20px;
+        }
+
+        .terms input {
+            margin-top: 3px;
+            accent-color: #6c4df6;
+            cursor: pointer;
+        }
+
+        .terms label {
+            font-size: 9px;
+            line-height: 1.5;
+            color: #89839a;
+            cursor: pointer;
+        }
+
+        .terms a {
+            color: #6c4df6;
+            font-weight: 600;
+        }
+
+        /* BUTTON */
+
+        .signup-button {
+            width: 100%;
+            height: 46px;
+            border: none;
+            border-radius: 10px;
+            background: #6c4df6;
+            color: white;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(108,77,246,0.25);
+            transition: 0.25s;
+        }
+
+        .signup-button:hover {
+            background: #5b3fe2;
+            transform: translateY(-2px);
+        }
+
+        .signup-button:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* BOTTOM */
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 21px 0;
+            color: #aaa5b7;
+            font-size: 9px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            height: 1px;
+            flex: 1;
+            background: #ebe8f2;
+        }
+
+        .login-text {
             text-align: center;
+            color: #88839a;
+            font-size: 11px;
+        }
 
-            letter-spacing: 8px;
-
-            padding-left: 20px;
-
-            padding-right: 20px;
-
-            font-size: 18px;
-
+        .login-text a {
+            color: #6c4df6;
             font-weight: 700;
         }
 
-
-        /* =========================
-           SHOW PASSWORD
-        ========================= */
-
-        .toggle-password {
-
-            position: absolute;
-
-            right: 14px;
-
-            top: 50%;
-
-            transform:
-                translateY(-50%);
-
-            border: none;
-
-            background: none;
-
-            color: #888;
-
-            font-size: 15px;
-
-            cursor: pointer;
+        .login-text a:hover {
+            text-decoration: underline;
         }
 
-
-        .toggle-password:hover {
-
-            color: #6c4df6;
-        }
-
-
-        /* =========================
-           PASSWORD STRENGTH
-        ========================= */
-
-        .strength {
-
-            margin-top: 7px;
-
+        .back-home {
+            display: block;
+            text-align: center;
+            margin-top: 16px;
+            color: #88839a;
             font-size: 10px;
-
-            color: #999;
-
-            text-align: right;
         }
 
-
-        .strength.weak {
-
-            color: #d64545;
-        }
-
-
-        .strength.medium {
-
-            color: #c58a18;
-        }
-
-
-        .strength.strong {
-
-            color: #239653;
-        }
-
-
-        /* =========================
-           BUTTON
-        ========================= */
-
-        .submit-btn {
-
-            width: 100%;
-
-            height: 53px;
-
-            margin-top: 7px;
-
-            border: none;
-
-            border-radius: 13px;
-
-            background: #6c4df6;
-
-            color: white;
-
-            font-family: "Poppins", sans-serif;
-
-            font-size: 14px;
-
-            font-weight: 600;
-
-            cursor: pointer;
-
-            box-shadow:
-                0 12px 25px
-                rgba(108,77,246,0.22);
-
-            transition: 0.25s;
-        }
-
-
-        .submit-btn:hover {
-
-            background: #5940d8;
-
-            transform:
-                translateY(-2px);
-
-            box-shadow:
-                0 15px 30px
-                rgba(108,77,246,0.28);
-        }
-
-
-        .submit-btn:active {
-
-            transform:
-                translateY(0);
-        }
-
-
-        /* =========================
-           BACK LOGIN
-        ========================= */
-
-        .back-login {
-
-            display: inline-block;
-
-            margin-top: 24px;
-
-            color: #777;
-
-            font-size: 12px;
-
-            text-decoration: none;
-
-            transition: 0.2s;
-        }
-
-
-        .back-login:hover {
-
+        .back-home:hover {
             color: #6c4df6;
         }
 
+        /* RESPONSIVE */
 
-        /* =========================
-           RESPONSIVE
-        ========================= */
+        @media (max-width: 950px) {
 
-        @media (max-width: 850px) {
-
-            .reset-container {
-
-                grid-template-columns: 1fr;
-
-                max-width: 550px;
+            .left-section {
+                width: 40%;
+                padding: 30px;
             }
 
-
-            .left-panel {
-
-                min-height: 330px;
-
-                padding: 50px;
+            .right-section {
+                width: 60%;
+                padding: 20px;
             }
-
 
             .left-content h1 {
-
                 font-size: 31px;
             }
 
-
-            .left-content p {
-
-                max-width: 100%;
+            .signup-card {
+                padding: 30px;
             }
-
-
-            .security-points {
-
-                margin-top: 25px;
-            }
-
-
-            .right-panel {
-
-                padding:
-                    50px 35px;
-            }
-
         }
 
+        @media (max-width: 720px) {
 
-        @media (max-width: 500px) {
-
-            body {
-
-                padding: 15px;
+            .page {
+                display: block;
             }
 
+            .left-section {
+                display: none;
+            }
 
-            .reset-container {
+            .right-section {
+                width: 100%;
+                min-height: 100vh;
+                padding: 20px;
+            }
 
+            .mobile-logo {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                margin-bottom: 20px;
+            }
+
+            .mobile-logo-icon {
+                width: 42px;
+                height: 42px;
+                background: #6c4df6;
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 20px;
+            }
+
+            .mobile-logo h2 {
+                font-size: 19px;
+                color: #27213f;
+            }
+
+            .signup-card {
+                max-width: 500px;
+                padding: 27px 22px;
                 border-radius: 20px;
             }
 
-
-            .left-panel {
-
-                min-height: 300px;
-
-                padding:
-                    35px 28px;
+            .signup-heading h2 {
+                font-size: 23px;
             }
-
-
-            .logo {
-
-                left: 28px;
-
-                top: 25px;
-
-                font-size: 15px;
-            }
-
-
-            .lock-icon {
-
-                width: 60px;
-                height: 60px;
-
-                margin-bottom: 20px;
-
-                font-size: 28px;
-            }
-
-
-            .left-content h1 {
-
-                font-size: 27px;
-            }
-
-
-            .left-content p {
-
-                font-size: 12px;
-            }
-
-
-            .security-point {
-
-                font-size: 11px;
-            }
-
-
-            .right-panel {
-
-                padding:
-                    40px 22px;
-            }
-
-
-            .reset-box h2 {
-
-                font-size: 25px;
-            }
-
-
-            .reset-icon {
-
-                width: 65px;
-                height: 65px;
-
-                font-size: 29px;
-            }
-
-
-            .otp-input {
-
-                letter-spacing: 5px;
-
-                font-size: 16px;
-            }
-
         }
 
+        @media (max-width: 500px) {
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .right-section {
+                padding: 15px;
+            }
+
+            .signup-card {
+                padding: 24px 18px;
+            }
+        }
     </style>
 
 <style>
-    /* Pastel-girly visual theme override only. Existing HTML, Flask/Jinja,
-       form fields, routes, JavaScript, and validation are intentionally untouched. */
+
+    /* ===== Pastel refresh: Signup page ===== */
     :root {
-        --ink: #49364d;
-        --muted: #78677b;
-        --pink: #df6f9e;
-        --pink-deep: #b94f7b;
-        --peach: #ffddc9;
-        --lavender: #dcd2ff;
-        --mint: #c9f0df;
-        --sky: #ccecff;
-        --line: #efd9e6;
+        --petal: #f7a9c4;
+        --peach: #ffd2bd;
+        --mint: #bdebdc;
+        --lavender: #d9ccff;
+        --ink: #30283d;
+        --muted: #777184;
     }
 
     body {
-        position: relative;
-        isolation: isolate;
-        overflow-x: hidden;
+        background: #fff8fb !important;
+        color: var(--ink);
+    }
+
+    .page {
         background:
-            radial-gradient(ellipse at 8% 12%, rgba(255, 190, 215, .68), transparent 29%),
-            radial-gradient(ellipse at 92% 15%, rgba(204, 236, 255, .72), transparent 28%),
-            radial-gradient(ellipse at 88% 88%, rgba(201, 240, 223, .75), transparent 30%),
-            radial-gradient(ellipse at 12% 90%, rgba(255, 221, 201, .72), transparent 30%),
-            linear-gradient(135deg, #fff8fb 0%, #fffaf4 48%, #f5f8ff 100%) !important;
-        color: var(--ink) !important;
-    }
-
-    /* Darker, money-themed watermark details on the light background */
-    body::before,
-    body::after {
-        position: fixed;
-        pointer-events: none;
-        z-index: 0;
-        font-weight: 800;
-        line-height: 1.5;
-        white-space: pre-wrap;
-        color: rgba(112, 69, 99, .13);
-    }
-
-    body::before {
-        content: "₹       $       🪙\A\A   💵       €       £\A\A ₹       $       🪙";
-        inset: -4% -8%;
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        font-size: clamp(32px, 5.4vw, 76px);
-        letter-spacing: 8px;
-        transform: rotate(-13deg);
-    }
-
-    body::after {
-        content: "₹";
-        right: 2%;
-        bottom: -8%;
-        font-size: clamp(180px, 28vw, 360px);
-        color: rgba(112, 69, 99, .075);
-        transform: rotate(-16deg);
-    }
-
-    .reset-container {
+            radial-gradient(circle at 12% 15%, rgba(247,169,196,.30), transparent 25%),
+            radial-gradient(circle at 88% 82%, rgba(189,235,220,.35), transparent 28%),
+            #fff8fb !important;
         position: relative;
-        z-index: 1;
-        background: rgba(255, 255, 255, .96) !important;
-        border: 1px solid rgba(239, 217, 230, .95) !important;
-        border-radius: 28px !important;
-        box-shadow: 0 25px 70px rgba(117, 75, 105, .16) !important;
         overflow: hidden;
     }
 
-    .left-panel {
-        background:
-            radial-gradient(circle at 95% 8%, rgba(255,255,255,.58), transparent 28%),
-            linear-gradient(145deg, #ffe0eb 0%, #f0e4ff 46%, #d9f5e9 100%) !important;
-        color: var(--ink) !important;
+    .page::before {
+        content: "₹  $  €  ◉  ₹  $  ¢  ₹";
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: clamp(3rem, 10vw, 9rem);
+        font-weight: 800;
+        letter-spacing: .18em;
+        line-height: 1.7;
+        color: rgba(115, 77, 105, .075);
+        transform: rotate(-18deg);
+        pointer-events: none;
+        z-index: 0;
+        word-break: break-all;
     }
 
-    .left-panel::before,
-    .left-panel::after {
-        color: rgba(111, 68, 105, .10) !important;
+    .left-section,
+    .right-section {
+        position: relative;
+        z-index: 1;
     }
 
-    .logo,
-    .left-content h1,
-    .left-panel h1 {
-        color: #5b3d60 !important;
+    .left-section {
+        background: linear-gradient(145deg, #352b43 0%, #51405f 55%, #73536d 100%) !important;
+        color: #fff !important;
     }
 
-    .logo span,
-    .left-content h1 span,
-    .left-panel h1 span {
-        color: var(--pink-deep) !important;
+    .logo-icon,
+    .mobile-logo-icon {
+        background: linear-gradient(135deg, #f5a9c5, #ffcfb9) !important;
+        color: #382a43 !important;
+        box-shadow: 0 8px 20px rgba(247,169,196,.24);
     }
 
-    .left-content p,
-    .left-panel p,
-    .security-point {
-        color: #715d78 !important;
+    .left-content h1 span {
+        color: #ffc4d9 !important;
     }
 
-    .lock-icon,
-    .reset-icon {
-        background: linear-gradient(135deg, #ffe0ec 0%, #e6ddff 52%, #d7f5e7 100%) !important;
-        border: 1px solid rgba(226, 160, 193, .42) !important;
-        box-shadow: 0 8px 20px rgba(174, 105, 148, .10);
-        color: #a84f7c !important;
+    .left-content > p,
+    .benefit {
+        color: rgba(255,255,255,.86) !important;
     }
 
     .check {
-        background: rgba(223, 111, 158, .15) !important;
-        color: #a94e7a !important;
+        background: rgba(189,235,220,.18) !important;
+        color: #c7f4e5 !important;
+        border: 1px solid rgba(199,244,229,.35);
     }
 
-    .right-panel {
-        background: rgba(255, 255, 255, .97) !important;
+    .right-section {
+        background: rgba(255, 248, 251, .86) !important;
     }
 
-    .reset-box,
-    .reset-box h2 {
-        color: var(--ink) !important;
+    .signup-card {
+        background: rgba(255,255,255,.96) !important;
+        border: 1px solid rgba(230, 195, 214, .8) !important;
+        border-radius: 28px !important;
+        box-shadow: 0 24px 70px rgba(74, 45, 73, .13) !important;
+        backdrop-filter: blur(10px);
     }
 
-    .subtitle {
-        color: var(--muted) !important;
+    .signup-heading h2 {
+        color: #342a40 !important;
+    }
+
+    .signup-heading p,
+    .login-text,
+    .back-home {
+        color: #82778a !important;
     }
 
     .form-group label {
-        color: #5b465f !important;
+        color: #45384f !important;
+        font-weight: 700;
     }
 
-    .form-control,
-    input.form-control,
-    .otp-input {
+    .input-box {
         background: #fffafd !important;
-        border: 1px solid #ead7e5 !important;
-        color: #49364d !important;
-        border-radius: 13px !important;
+        border: 1px solid #ead9e5 !important;
+        border-radius: 14px !important;
+        transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
     }
 
-    .form-control:focus,
-    input.form-control:focus,
-    .otp-input:focus {
-        border-color: #df83ad !important;
-        background: #ffffff !important;
-        box-shadow: 0 0 0 4px rgba(223, 111, 158, .15) !important;
-        outline: none !important;
+    .input-box:focus-within {
+        border-color: #e79cbd !important;
+        box-shadow: 0 0 0 4px rgba(247,169,196,.18) !important;
+        transform: translateY(-1px);
     }
 
-    .form-control::placeholder {
-        color: #ad9cac !important;
+    .input-box input {
+        color: #352b43 !important;
+        background: transparent !important;
+    }
+
+    .input-box input::placeholder {
+        color: #aaa0ae !important;
     }
 
     .input-icon {
-        color: #a47798 !important;
+        color: #c06d98 !important;
     }
 
-    .toggle-password {
-        color: #9a7290 !important;
+    .password-toggle {
+        border: 0;
+        background: #fff0f6 !important;
+        border-radius: 9px;
+        cursor: pointer;
     }
 
-    .toggle-password:hover,
-    .back-login:hover {
-        color: var(--pink-deep) !important;
-    }
-
-    .strength {
-        color: #98849a !important;
-    }
-
-    .strength.weak {
-        color: #c84d62 !important;
-    }
-
-    .strength.medium {
-        color: #a87821 !important;
-    }
-
-    .strength.strong {
-        color: #27845c !important;
-    }
-
-    .submit-btn {
-        background: linear-gradient(100deg, #e783ad 0%, #b8a0ec 52%, #83d8bc 100%) !important;
-        color: #ffffff !important;
+    .signup-button {
+        background: linear-gradient(100deg, #e88fb5, #f5b5a0) !important;
+        color: #382a43 !important;
         border: 0 !important;
-        border-radius: 13px !important;
-        box-shadow: 0 11px 25px rgba(191, 117, 164, .24) !important;
+        border-radius: 14px !important;
+        box-shadow: 0 10px 22px rgba(232,143,181,.25);
+        font-weight: 800;
+        transition: transform .2s ease, box-shadow .2s ease;
     }
 
-    .submit-btn:hover {
-        filter: saturate(1.05) brightness(1.02);
+    .signup-button:hover {
         transform: translateY(-2px);
-        box-shadow: 0 14px 28px rgba(191, 117, 164, .28) !important;
+        box-shadow: 0 14px 28px rgba(232,143,181,.32);
     }
 
-    .submit-btn:active {
-        transform: translateY(0);
+    .terms {
+        background: #fff6fa;
+        border: 1px solid #f1dce7;
+        border-radius: 12px;
+        padding: 12px;
     }
 
-    .back-login {
-        color: #a35d86 !important;
+    .terms label {
+        color: #74687b !important;
+    }
+
+    .login-text a,
+    .back-home:hover {
+        color: #c05f91 !important;
+    }
+
+    .divider::before,
+    .divider::after {
+        background: #eadce7 !important;
     }
 
     .flash-message {
-        border-radius: 12px !important;
+        border-radius: 12px;
     }
 
-    @media (max-width: 850px) {
-        body {
-            padding: 20px;
-            align-items: flex-start;
+    @media (max-width: 720px) {
+        .right-section {
+            background:
+                radial-gradient(circle at 8% 8%, rgba(247,169,196,.26), transparent 25%),
+                radial-gradient(circle at 92% 90%, rgba(189,235,220,.35), transparent 28%),
+                #fff8fb !important;
         }
 
-        .reset-container {
-            width: min(100%, 550px) !important;
-            margin: auto;
-        }
-    }
-
-    @media (max-width: 500px) {
-        body {
-            padding: 12px !important;
-        }
-
-        .reset-container {
+        .signup-card {
             width: 100%;
-            border-radius: 20px !important;
-        }
-
-        .left-panel {
-            padding: 35px 25px !important;
-        }
-
-        .right-panel {
-            padding: 36px 20px !important;
-        }
-
-        .otp-input {
-            letter-spacing: 5px;
-            font-size: 16px;
-        }
-
-        body::before {
-            font-size: 32px;
-            letter-spacing: 3px;
+            box-sizing: border-box;
         }
     }
-</style>
-</head>
 
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+            animation-duration: .01ms !important;
+            transition-duration: .01ms !important;
+            scroll-behavior: auto !important;
+        }
+    }
+
+</style>
+
+</head>
 
 <body>
 
+<div class="page">
 
-    <div class="reset-container">
+    <!-- ================= LEFT SECTION ================= -->
 
+    <section class="left-section">
 
-        <!-- =========================
-             LEFT PANEL
-        ========================== -->
-
-        <div class="left-panel">
-
+        <div class="left-content">
 
             <div class="logo">
 
-                Personal
-                <span>Expense Tracker</span>
+                <div class="logo-icon">
+                    ₹
+                </div>
+
+                <div>
+                    <h2>SpendWise</h2>
+                    <p>Personal Expense Tracker</p>
+                </div>
 
             </div>
 
 
-            <div class="left-content">
+            <h1>
+                Start Your
+                <span>Smart Money</span>
+                Journey
+            </h1>
+
+            <p>
+                Create your SpendWise account and make managing your
+                personal expenses simple, organized and stress-free.
+            </p>
 
 
-                <div class="lock-icon">
+            <div class="benefits">
 
-                    🔑
-
+                <div class="benefit">
+                    <div class="check">✓</div>
+                    Record and organize your expenses
                 </div>
 
-
-                <h1>
-
-                    Create your<br>
-
-                    <span>new password.</span>
-
-                </h1>
-
-
-                <p>
-
-                    Enter the OTP sent to your email
-                    and choose a strong new password
-                    for your Personal Expense Tracker
-                    account.
-
-                </p>
-
-
-                <div class="security-points">
-
-
-                    <div class="security-point">
-
-                        <span class="check">
-                            ✓
-                        </span>
-
-                        Secure OTP verification
-
-                    </div>
-
-
-                    <div class="security-point">
-
-                        <span class="check">
-                            ✓
-                        </span>
-
-                        Password must be at least 6 characters
-
-                    </div>
-
-
-                    <div class="security-point">
-
-                        <span class="check">
-                            ✓
-                        </span>
-
-                        Your old password will be replaced
-
-                    </div>
-
-
+                <div class="benefit">
+                    <div class="check">✓</div>
+                    Understand where your money goes
                 </div>
 
+                <div class="benefit">
+                    <div class="check">✓</div>
+                    Set and manage monthly budgets
+                </div>
+
+                <div class="benefit">
+                    <div class="check">✓</div>
+                    Get useful spending reports
+                </div>
 
             </div>
-
 
         </div>
 
-
-        <!-- =========================
-             RIGHT PANEL
-        ========================== -->
-
-        <div class="right-panel">
+    </section>
 
 
-            <div class="reset-box">
+    <!-- ================= RIGHT SECTION ================= -->
+
+    <section class="right-section">
+
+        <div class="signup-wrapper">
+
+            <!-- MOBILE LOGO -->
+
+            <div class="mobile-logo">
+
+                <div class="mobile-logo-icon">
+                    ₹
+                </div>
+
+                <h2>SpendWise</h2>
+
+            </div>
 
 
-                <div class="reset-icon">
+            <!-- SIGNUP CARD -->
 
-                    🔐
+            <div class="signup-card">
+
+                <div class="signup-heading">
+
+                    <h2>Create your account</h2>
+
+                    <p>
+                        Enter your details to get started with SpendWise.
+                    </p>
 
                 </div>
 
 
-                <h2>
+                <!-- FLASH MESSAGES -->
 
-                    Reset Password
-
-                </h2>
-
-
-                <p class="subtitle">
-
-                    Enter the OTP from your email
-                    and create a new password.
-
-                </p>
-
-
-                <!-- =========================
-                     FLASH MESSAGES
-                ========================== -->
-
-                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% with messages = get_flashed_messages() %}
 
                     {% if messages %}
 
-                        {% for category, message in messages %}
+                        <div class="flash-container">
 
-                            <div class="flash-message {{ category }}">
+                            {% for message in messages %}
 
-                                {{ message }}
+                                <div class="flash-message">
+                                    {{ message }}
+                                </div>
 
-                            </div>
+                            {% endfor %}
 
-                        {% endfor %}
+                        </div>
 
                     {% endif %}
 
                 {% endwith %}
 
 
-                <!-- =========================
-                     RESET FORM
-                ========================== -->
+                <!-- SIGNUP FORM -->
 
                 <form
+                    action="{{ url_for('signup') }}"
                     method="POST"
-                    action="{{ url_for('reset_password') }}"
-                    id="resetForm"
+                    id="signupForm"
                 >
 
+                    <!-- NAME + MOBILE -->
 
-                    <!-- OTP -->
+                    <div class="form-row">
 
-                    <div class="form-group">
+                        <div class="form-group">
 
+                            <label for="full_name">
+                                Full Name
+                            </label>
 
-                        <label for="otp">
+                            <div class="input-box">
 
-                            Verification OTP
+                                <span class="input-icon">
+                                    ♙
+                                </span>
 
-                        </label>
+                                <input
+                                    type="text"
+                                    id="full_name"
+                                    name="full_name"
+                                    placeholder="Enter your name"
+                                    required
+                                    maxlength="100"
+                                    autocomplete="name"
+                                >
 
-
-                        <div class="input-wrapper">
-
-
-                            <span class="input-icon">
-
-                                #
-
-                            </span>
-
-
-                            <input
-                                type="text"
-                                id="otp"
-                                name="otp"
-                                class="form-control otp-input"
-                                placeholder="6-digit OTP"
-                                maxlength="6"
-                                inputmode="numeric"
-                                autocomplete="one-time-code"
-                                required
-                            >
-
+                            </div>
 
                         </div>
 
 
+                        <div class="form-group">
+
+                            <label for="mobile">
+                                Mobile Number
+                            </label>
+
+                            <div class="input-box">
+
+                                <span class="input-icon">
+                                    ☎
+                                </span>
+
+                                <input
+                                    type="tel"
+                                    id="mobile"
+                                    name="mobile"
+                                    placeholder="10-digit mobile"
+                                    required
+                                    maxlength="10"
+                                    pattern="[0-9]{10}"
+                                    inputmode="numeric"
+                                    autocomplete="tel"
+                                >
+
+                            </div>
+
+                        </div>
+
                     </div>
 
 
-                    <!-- NEW PASSWORD -->
+                    <!-- EMAIL -->
 
                     <div class="form-group">
 
-
-                        <label for="password">
-
-                            New Password
-
+                        <label for="email">
+                            Email Address
                         </label>
 
-
-                        <div class="input-wrapper">
-
+                        <div class="input-box">
 
                             <span class="input-icon">
-
-                                🔒
-
+                                ✉
                             </span>
 
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your email address"
+                                required
+                                autocomplete="email"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <div class="input-box">
+
+                            <span class="input-icon">
+                                🔒
+                            </span>
 
                             <input
                                 type="password"
                                 id="password"
                                 name="password"
-                                class="form-control"
-                                placeholder="Enter new password"
+                                placeholder="Create a password"
+                                required
                                 minlength="6"
                                 autocomplete="new-password"
-                                required
+                                oninput="checkPasswordStrength()"
                             >
-
 
                             <button
                                 type="button"
-                                class="toggle-password"
+                                class="password-toggle"
                                 onclick="togglePassword('password', this)"
                                 aria-label="Show password"
                             >
-
                                 👁
-
                             </button>
-
 
                         </div>
 
 
                         <div
-                            id="strength"
-                            class="strength"
+                            class="password-strength"
+                            id="passwordStrength"
                         >
 
-                            Password strength
+                            <div class="strength-bar">
+
+                                <div
+                                    class="strength-fill"
+                                    id="strengthFill"
+                                ></div>
+
+                            </div>
+
+                            <div
+                                class="strength-text"
+                                id="strengthText"
+                            ></div>
 
                         </div>
-
 
                     </div>
 
@@ -1351,315 +999,241 @@
 
                     <div class="form-group">
 
-
                         <label for="confirm_password">
-
-                            Confirm New Password
-
+                            Confirm Password
                         </label>
 
-
-                        <div class="input-wrapper">
-
+                        <div class="input-box">
 
                             <span class="input-icon">
-
-                                🔒
-
+                                🔐
                             </span>
-
 
                             <input
                                 type="password"
                                 id="confirm_password"
                                 name="confirm_password"
-                                class="form-control"
-                                placeholder="Confirm new password"
+                                placeholder="Re-enter your password"
+                                required
                                 minlength="6"
                                 autocomplete="new-password"
-                                required
                             >
-
 
                             <button
                                 type="button"
-                                class="toggle-password"
+                                class="password-toggle"
                                 onclick="togglePassword('confirm_password', this)"
                                 aria-label="Show password"
                             >
-
                                 👁
-
                             </button>
 
-
                         </div>
-
 
                     </div>
 
 
+                    <!-- TERMS -->
+
+                    <div class="terms">
+
+                        <input
+                            type="checkbox"
+                            id="terms"
+                            required
+                        >
+
+                        <label for="terms">
+
+                            I agree to use SpendWise responsibly and
+                            understand that my account information is
+                            used for the expense tracking service.
+
+                        </label>
+
+                    </div>
+
+
+                    <!-- BUTTON -->
+
                     <button
                         type="submit"
-                        class="submit-btn"
+                        class="signup-button"
+                        id="signupButton"
                     >
-
-                        Reset Password 🔐
-
+                        Create Account →
                     </button>
-
 
                 </form>
 
 
+                <div class="divider">
+                    OR
+                </div>
+
+
+                <div class="login-text">
+
+                    Already have an account?
+
+                    <a href="{{ url_for('login') }}">
+                        Login
+                    </a>
+
+                </div>
+
+
                 <a
-                    href="{{ url_for('login') }}"
-                    class="back-login"
+                    href="{{ url_for('home') }}"
+                    class="back-home"
                 >
-
-                    ← Back to Login
-
+                    ← Back to Home
                 </a>
-
 
             </div>
 
-
         </div>
 
+    </section>
 
-    </div>
-
-
-    <script>
-
-        /* =========================
-           OTP ONLY NUMBERS
-        ========================= */
-
-        const otpInput =
-            document.getElementById("otp");
-
-        otpInput.addEventListener(
-            "input",
-            function () {
-
-                this.value =
-                    this.value
-                        .replace(/\D/g, "")
-                        .slice(0, 6);
-
-            }
-        );
+</div>
 
 
-        /* =========================
-           SHOW / HIDE PASSWORD
-        ========================= */
+<script>
 
-        function togglePassword(
-            fieldId,
-            button
-        ) {
+    /* ================= PASSWORD SHOW/HIDE ================= */
 
-            const field =
-                document.getElementById(fieldId);
+    function togglePassword(fieldId, button) {
 
-            if (field.type === "password") {
+        const field = document.getElementById(fieldId);
 
-                field.type = "text";
+        if (field.type === "password") {
 
-                button.textContent = "🙈";
+            field.type = "text";
+            button.textContent = "🙈";
 
-            } else {
+        } else {
 
-                field.type = "password";
+            field.type = "password";
+            button.textContent = "👁";
 
-                button.textContent = "👁";
+        }
 
-            }
+    }
+
+
+    /* ================= PASSWORD STRENGTH ================= */
+
+    function checkPasswordStrength() {
+
+        const password = document.getElementById("password").value;
+
+        const box = document.getElementById("passwordStrength");
+        const fill = document.getElementById("strengthFill");
+        const text = document.getElementById("strengthText");
+
+        if (password.length === 0) {
+
+            box.style.display = "none";
+            return;
+
+        }
+
+        box.style.display = "block";
+
+        let strength = 0;
+
+        if (password.length >= 6) {
+            strength++;
+        }
+
+        if (/[A-Z]/.test(password)) {
+            strength++;
+        }
+
+        if (/[0-9]/.test(password)) {
+            strength++;
+        }
+
+        if (/[^A-Za-z0-9]/.test(password)) {
+            strength++;
+        }
+
+
+        if (strength <= 1) {
+
+            fill.style.width = "25%";
+            text.textContent = "Weak password";
+
+        } else if (strength === 2) {
+
+            fill.style.width = "50%";
+            text.textContent = "Medium password";
+
+        } else if (strength === 3) {
+
+            fill.style.width = "75%";
+            text.textContent = "Good password";
+
+        } else {
+
+            fill.style.width = "100%";
+            text.textContent = "Strong password";
+
+        }
+
+    }
+
+
+    /* ================= FORM VALIDATION ================= */
+
+    document.getElementById("signupForm").addEventListener("submit", function(event) {
+
+        const password =
+            document.getElementById("password").value;
+
+        const confirmPassword =
+            document.getElementById("confirm_password").value;
+
+        const mobile =
+            document.getElementById("mobile").value;
+
+
+        if (!/^[0-9]{10}$/.test(mobile)) {
+
+            event.preventDefault();
+
+            alert("Please enter a valid 10-digit mobile number.");
+
+            return;
 
         }
 
 
-        /* =========================
-           PASSWORD STRENGTH
-        ========================= */
+        if (password !== confirmPassword) {
 
-        const password =
-            document.getElementById("password");
+            event.preventDefault();
 
-        const strength =
-            document.getElementById("strength");
+            alert("Password and Confirm Password do not match.");
 
+            return;
 
-        password.addEventListener(
-            "input",
-            function () {
+        }
 
-                const value = this.value;
 
-                strength.className = "strength";
+        if (password.length < 6) {
 
+            event.preventDefault();
 
-                if (value.length === 0) {
+            alert("Password must contain at least 6 characters.");
 
-                    strength.textContent =
-                        "Password strength";
+            return;
 
-                    return;
+        }
 
-                }
+    });
 
-
-                if (value.length < 6) {
-
-                    strength.textContent =
-                        "Too short";
-
-                    strength.classList.add(
-                        "weak"
-                    );
-
-                    return;
-
-                }
-
-
-                let score = 0;
-
-
-                if (value.length >= 8) {
-                    score++;
-                }
-
-
-                if (/[A-Z]/.test(value)) {
-                    score++;
-                }
-
-
-                if (/[0-9]/.test(value)) {
-                    score++;
-                }
-
-
-                if (/[^A-Za-z0-9]/.test(value)) {
-                    score++;
-                }
-
-
-                if (score <= 1) {
-
-                    strength.textContent =
-                        "Weak password";
-
-                    strength.classList.add(
-                        "weak"
-                    );
-
-                }
-
-                else if (score <= 2) {
-
-                    strength.textContent =
-                        "Medium password";
-
-                    strength.classList.add(
-                        "medium"
-                    );
-
-                }
-
-                else {
-
-                    strength.textContent =
-                        "Strong password";
-
-                    strength.classList.add(
-                        "strong"
-                    );
-
-                }
-
-            }
-        );
-
-
-        /* =========================
-           FORM VALIDATION
-        ========================= */
-
-        document
-            .getElementById("resetForm")
-            .addEventListener(
-                "submit",
-                function(event) {
-
-                    const otp =
-                        document
-                            .getElementById("otp")
-                            .value
-                            .trim();
-
-                    const newPassword =
-                        document
-                            .getElementById("password")
-                            .value;
-
-                    const confirmPassword =
-                        document
-                            .getElementById(
-                                "confirm_password"
-                            )
-                            .value;
-
-
-                    if (!/^\d{6}$/.test(otp)) {
-
-                        event.preventDefault();
-
-                        alert(
-                            "Please enter the complete 6-digit OTP."
-                        );
-
-                        return;
-
-                    }
-
-
-                    if (newPassword.length < 6) {
-
-                        event.preventDefault();
-
-                        alert(
-                            "Password must be at least 6 characters."
-                        );
-
-                        return;
-
-                    }
-
-
-                    if (
-                        newPassword !==
-                        confirmPassword
-                    ) {
-
-                        event.preventDefault();
-
-                        alert(
-                            "Passwords do not match."
-                        );
-
-                    }
-
-                }
-            );
-
-    </script>
-
+</script>
 
 </body>
-
 </html>
