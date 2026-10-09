@@ -31,7 +31,7 @@ load_dotenv()
 # FLASK APP
 # =========================================================
 
-app = Flask(__name__, template_folder="templates")
+app = Flask(__name__, template_folder=".")
 
 app.secret_key = os.getenv(
     "SECRET_KEY",
@@ -43,24 +43,14 @@ app.secret_key = os.getenv(
 # EMAIL SETTINGS
 # =========================================================
 
-RESEND_API_KEY = os.getenv("RESEND_API_KEY", "")
-RESEND_FROM_EMAIL = os.getenv("RESEND_FROM_EMAIL", "onboarding@resend.dev")
+GOOGLE_APPS_SCRIPT_URL = os.getenv("GOOGLE_APPS_SCRIPT_URL", "").strip()
 
 # =========================================================
 # ADMIN SETTINGS
 # =========================================================
 
-ADMIN_EMAIL = (
-    os.getenv("ADMIN_EMAIL")
-    or os.getenv("ADMIN_USERNAME")
-    or ""
-).strip().lower()
-
-ADMIN_PASSWORD = (
-    os.getenv("ADMIN_PASSWORD")
-    or os.getenv("ADMIN_PASS")
-    or ""
-).strip()
+ADMIN_EMAIL = os.getenv("ADMIN_EMAIL", "").strip().lower()
+ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "")
 
 
 # =========================================================
@@ -97,58 +87,32 @@ def get_current_user():
 
 
 def send_otp_email(email, otp):
-    """
-    Sends OTP to user's email using Resend HTTPS API.
-    """
-
-    if not RESEND_API_KEY:
-        print("EMAIL ERROR: RESEND_API_KEY is missing.")
-        print("OTP for testing:", otp)
+    """Send OTP via the Google Apps Script HTTPS web app."""
+    if not GOOGLE_APPS_SCRIPT_URL:
+        print("EMAIL ERROR: GOOGLE_APPS_SCRIPT_URL is missing.")
         return False
 
     try:
-        print(f"Sending OTP to: {email}")
-
         response = requests.post(
-            "https://api.resend.com/emails",
-            headers={
-                "Authorization": f"Bearer {RESEND_API_KEY}",
-                "Content-Type": "application/json"
-            },
+            GOOGLE_APPS_SCRIPT_URL,
             json={
-                "from": RESEND_FROM_EMAIL,
-                "to": [email],
-                "subject": "Personal Expense Tracker - OTP Verification",
-                "html": f"""
-                    <div style="font-family: Arial, sans-serif;">
-                        <h2>Personal Expense Tracker</h2>
-
-                        <p>Hello,</p>
-
-                        <p>Your OTP for verification is:</p>
-
-                        <h1 style="letter-spacing: 5px;">{otp}</h1>
-
-                        <p>This OTP is valid for 30 seconds.</p>
-
-                        <p>If you did not request this OTP, please ignore this email.</p>
-
-                        <br>
-
-                        <p>Regards,<br>Personal Expense Tracker</p>
-                    </div>
-                """
+                "email": email,
+                "otp": otp,
+                "purpose": "Personal Expense Tracker OTP",
+                "valid_minutes": 10
             },
-            timeout=20
+            timeout=25
         )
-
-        if response.status_code in (200, 201):
-            print("OTP EMAIL SENT SUCCESSFULLY.")
-            return True
-
-        print("RESEND ERROR:", response.status_code, response.text)
-        return False
-
+        print("Apps Script email response:", response.status_code, response.text[:300])
+        if not response.ok:
+            return False
+        try:
+            payload = response.json()
+            return payload.get("success") is True
+        except ValueError:
+            # Apps Script may return a redirect/html response even after accepting a POST.
+            # Do not claim success unless its response explicitly confirms it.
+            return False
     except Exception as error:
         print("EMAIL ERROR:", repr(error))
         return False
@@ -168,7 +132,7 @@ def create_and_send_otp(user_id, email, purpose="signup"):
 
     expires_at = (
         datetime.now() +
-        timedelta(seconds=30)
+        timedelta(minutes=10)
     ).isoformat()
 
     connection = get_connection()
@@ -243,9 +207,8 @@ def log_activity(user_id, action, details=""):
 
 
 def admin_required():
-    return bool(session.get("admin_logged_in") and session.get("admin_email"))
-
-
+    """Returns True when the current session belongs to the admin."""
+    return session.get("admin_logged_in") is True
 
 
 # =========================================================
@@ -487,15 +450,16 @@ def signup():
         )
 
         session["pending_user_id"] = user_id
+        session["otp_purpose"] = "signup"
 
         if email_sent:
             flash(
-                "OTP has been sent to your email. It is valid for 30 seconds.",
+                "OTP has been sent to your email. It is valid for 10 minutes.",
                 "success"
             )
         else:
             flash(
-                "OTP could not be sent to your email. Please check the terminal for the Gmail error.",
+                "OTP could not be sent to your email. Please check the server logs and Apps Script deployment.",
                 "error"
             )
 
@@ -654,6 +618,7 @@ def otp():
             "pending_user_id",
             None
         )
+        session.pop("otp_purpose", None)
 
         session["user_id"] = user_id
 
@@ -672,6 +637,54 @@ def otp():
     return render_template(
         "otp.html"
     )
+
+
+@app.route("/resend-otp", methods=["POST"])
+def resend_otp():
+    """Resend OTP for signup/login verification or password reset."""
+    reset_user_id = session.get("reset_user_id")
+    pending_user_id = session.get("pending_user_id")
+
+    if reset_user_id:
+        user_id = reset_user_id
+        purpose = "reset_password"
+        destination = "reset_password"
+    elif pending_user_id:
+        user_id = pending_user_id
+        purpose = session.get("otp_purpose", "signup")
+        destination = "otp"
+    else:
+        flash("Please start signup, login verification, or password reset first.", "error")
+        return redirect(url_for("forgot_password"))
+
+    connection = get_connection()
+    try:
+        user = connection.execute(
+            "SELECT id, email FROM users WHERE id = ?", (user_id,)
+        ).fetchone()
+    finally:
+        connection.close()
+
+    if not user:
+        flash("Account not found. Please try again.", "error")
+        return redirect(url_for("signup"))
+
+    # Invalidate any previous unused OTP for this same purpose.
+    connection = get_connection()
+    try:
+        connection.execute(
+            "UPDATE otp_verifications SET is_used = 1 WHERE user_id = ? AND purpose = ? AND is_used = 0",
+            (user_id, purpose)
+        )
+        connection.commit()
+    finally:
+        connection.close()
+
+    if create_and_send_otp(user_id, user["email"], purpose):
+        flash("A new OTP has been sent. It is valid for 10 minutes.", "success")
+    else:
+        flash("OTP email could not be sent. Check the Apps Script deployment and server logs.", "error")
+    return redirect(url_for(destination))
 
 
 # =========================================================
@@ -727,17 +740,10 @@ def login():
             )
 
 
-        password_ok = False
-
-        try:
-            password_ok = check_password_hash(
-                user["password"],
-                password
-            )
-        except Exception as error:
-            print("Password hash check error:", error)
-
-        if not password_ok:
+        if not check_password_hash(
+            user["password"],
+            password
+        ):
 
             flash(
                 "Incorrect password.",
@@ -756,6 +762,7 @@ def login():
         if not user["is_verified"]:
 
             session["pending_user_id"] = user["id"]
+            session["otp_purpose"] = "login"
 
 
             create_and_send_otp(
@@ -1969,7 +1976,7 @@ def admin_login():
 
     if request.method == "POST":
 
-        email = request.form.get("email", request.form.get("username", "")).strip().lower()
+        email = request.form.get("email", "").strip().lower()
         password = request.form.get("password", "")
 
         if not ADMIN_EMAIL or not ADMIN_PASSWORD:
