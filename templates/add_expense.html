@@ -776,6 +776,111 @@
             background: rgba(108,77,246,0.16);
         }
 
+    
+
+        /* ===== Pastel girly theme overrides: visual styling only ===== */
+        :root {
+            --petal-pink: #f7c8dc;
+            --soft-pink: #fff0f6;
+            --peach: #ffe0cf;
+            --lavender: #e5dcff;
+            --mint: #d7f3e6;
+            --sky: #d9efff;
+            --ink: #44364f;
+            --muted-ink: #75667f;
+            --accent: #bd5d91;
+        }
+        body {
+            background:
+                radial-gradient(circle at 88% 12%, rgba(255, 202, 220, .55), transparent 27%),
+                radial-gradient(circle at 72% 88%, rgba(205, 239, 225, .55), transparent 30%),
+                linear-gradient(135deg, #fff9fc 0%, #fff7f0 52%, #f3f8ff 100%);
+            color: var(--ink);
+        }
+        body::before {
+            color: rgba(126, 57, 96, .12);
+            font-size: clamp(34px, 5vw, 65px);
+            letter-spacing: 15px;
+        }
+        .sidebar {
+            background: linear-gradient(165deg, #fff0f6 0%, #f5eaff 54%, #eaf7ff 100%);
+            color: var(--ink);
+            border-right: 1px solid rgba(190, 130, 166, .22);
+            box-shadow: 8px 0 28px rgba(109, 71, 105, .07);
+        }
+        .brand-icon { background: linear-gradient(135deg, #e98ab6, #b79cf4); color: #fff; box-shadow: 0 7px 16px rgba(189, 93, 145, .2); }
+        .brand-name { color: #57415e; }
+        .brand-name span { color: #b64e87; }
+        .menu-title { color: #967b9a; }
+        .menu a, .sidebar-bottom a { color: #78647f; }
+        .menu a:hover, .menu a.active {
+            background: linear-gradient(100deg, #efb6d0, #d7c9ff);
+            color: #4d3455;
+            box-shadow: 0 5px 14px rgba(178, 118, 163, .16);
+        }
+        .sidebar-bottom a:hover { background: rgba(217, 177, 215, .35); color: #4d3455; }
+        .topbar { background: rgba(255,255,255,.88); border-bottom-color: #f0dce8; backdrop-filter: blur(12px); }
+        .topbar-title h2, .page-heading h1, .card-title h3 { color: #4b3b55; }
+        .topbar-title p, .page-heading p, .card-title p { color: #88778f; }
+        .mobile-menu { background: #fbe2ee; color: #a94e80; }
+        .notification { background: #f7e6f2; color: #9f4f83; }
+        .content { background: transparent; }
+        .page-heading h1 span { color: #bf6395; }
+        .form-card, .summary-card, .expense-card, .card {
+            background: rgba(255,255,255,.94);
+            border: 1px solid rgba(224, 190, 216, .6);
+            box-shadow: 0 14px 38px rgba(105, 73, 107, .09);
+            border-radius: 22px;
+        }
+        .card-title { border-bottom-color: #f4e4ed; }
+        .amount-box { background: linear-gradient(120deg, #fff0f6, #fff3e8 55%, #f0f8ff); border: 1px solid #f0d5e4; border-radius: 18px; }
+        .amount-box label, .form-group label, .category-title { color: #604a68; }
+        .amount-input input, .form-group input, .form-group select, .form-group textarea {
+            background: #fffafd;
+            color: #493b52;
+            border: 1px solid #ead5e5;
+            border-radius: 12px;
+        }
+        .amount-input input:focus, .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            background: #fff;
+            border-color: #d98bb5;
+            box-shadow: 0 0 0 4px rgba(217, 139, 181, .15);
+            outline: none;
+        }
+        .form-group input::placeholder, .form-group textarea::placeholder, .amount-input input::placeholder { color: #b09eaf; }
+        .category, .payment-option { background: #fffafd; color: #6b5873; border: 1px solid #ead9e9; border-radius: 14px; }
+        .category:nth-child(3n+1) { background: #fff0f6; }
+        .category:nth-child(3n+2) { background: #f0eaff; }
+        .category:nth-child(3n) { background: #eaf8f1; }
+        .category:hover, .category.selected, .payment-option:hover, .payment-option.selected {
+            background: #fbe0ed;
+            color: #783e64;
+            border-color: #d98bb5;
+            box-shadow: 0 5px 14px rgba(189, 93, 145, .12);
+        }
+        .save-button, .submit-button, button[type="submit"] {
+            background: linear-gradient(110deg, #d97fa9, #b6a0ef);
+            color: #fff;
+            border: 0;
+            border-radius: 13px;
+            box-shadow: 0 8px 18px rgba(181, 111, 165, .22);
+        }
+        .save-button:hover, .submit-button:hover, button[type="submit"]:hover { filter: brightness(1.03); box-shadow: 0 11px 22px rgba(181, 111, 165, .28); }
+        .cancel-button { background: #f5f0fa; color: #74617c; border: 1px solid #e7dbea; border-radius: 13px; }
+        @media (max-width: 800px) {
+            .sidebar { box-shadow: 8px 0 30px rgba(109, 71, 105, .13); }
+            .topbar { background: rgba(255,255,255,.94); }
+        }
+        @media (prefers-color-scheme: dark) {
+            body { background: linear-gradient(135deg, #fff9fc 0%, #fff7f0 52%, #f3f8ff 100%); color: var(--ink); }
+            .sidebar { background: linear-gradient(165deg, #fff0f6 0%, #f5eaff 54%, #eaf7ff 100%); color: var(--ink); }
+            .form-card, .summary-card, .expense-card, .card { background: rgba(255,255,255,.96); }
+            .form-group input, .form-group select, .form-group textarea, .amount-input input, .category, .payment-option { background-color: #fffafd; color: #493b52; border-color: #ead5e5; }
+            .form-group input::placeholder, .form-group textarea::placeholder, .amount-input input::placeholder { color: #b09eaf; }
+            .category span:last-child, .payment-option { color: #6b5873; }
+        }
+        /* ===== End pastel theme overrides ===== */
+
     </style>
 </head>
 
@@ -816,22 +921,22 @@
                 Add Expense
             </a>
 
-            <a href="#">
+            <a href="{{ url_for('expense_history') }}">
                 <span class="menu-icon">📋</span>
                 Expense History
             </a>
 
-            <a href="#">
+            <a href="{{ url_for('analysis') }}">
                 <span class="menu-icon">📊</span>
                 Analysis
             </a>
 
-            <a href="#">
+            <a href="{{ url_for('budget') }}">
                 <span class="menu-icon">🎯</span>
                 Budget
             </a>
 
-            <a href="#">
+            <a href="{{ url_for('reports') }}">
                 <span class="menu-icon">📈</span>
                 Reports
             </a>
@@ -846,12 +951,12 @@
 
         <nav class="menu">
 
-            <a href="#">
+            <a href="{{ url_for('profile') }}">
                 <span class="menu-icon">👤</span>
                 Profile
             </a>
 
-            <a href="#">
+            <a href="{{ url_for('settings') }}">
                 <span class="menu-icon">⚙️</span>
                 Settings
             </a>
@@ -861,7 +966,7 @@
 
         <div class="sidebar-bottom">
 
-            <a href="#">
+            <a href="{{ url_for('logout') }}">
                 <span>🚪</span>
                 Logout
             </a>
