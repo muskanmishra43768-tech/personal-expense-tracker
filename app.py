@@ -1970,7 +1970,6 @@ def logout():
 # =========================================================
 # ADMIN LOGIN
 # =========================================================
-
 @app.route("/admin/login", methods=["GET", "POST"])
 def admin_login():
 
@@ -1980,7 +1979,10 @@ def admin_login():
         password = request.form.get("password", "")
 
         if not ADMIN_EMAIL or not ADMIN_PASSWORD:
-            flash("Admin login is not configured. Please check your .env file.", "error")
+            flash(
+                "Admin login is not configured. Please check your Environment variables.",
+                "error"
+            )
             return redirect(url_for("admin_login"))
 
         if not (
@@ -1995,6 +1997,7 @@ def admin_login():
         session["admin_email"] = ADMIN_EMAIL
 
         flash("Admin login successful!", "success")
+
         return redirect(url_for("admin_dashboard"))
 
     return render_template("admin_login.html")
