@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin - Users | Personal Expense Tracker</title>
+<style>
+:root{--pink:#d95791;--ink:#382b40;--muted:#766a7d;--line:#f0dce8}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#fff7fb,#f7f4ff 55%,#f1f8ff);color:var(--ink)}
+.layout{display:flex;min-height:100vh}.sidebar{width:245px;padding:28px 18px;background:#ffffffdc;border-right:1px solid var(--line);flex-shrink:0}
+.brand{font-size:20px;font-weight:800;line-height:1.35;margin:0 8px 28px}.brand span{color:var(--pink)}
+.nav a{display:block;text-decoration:none;color:#65556b;padding:13px 15px;border-radius:13px;margin:6px 0;font-weight:600}.nav a:hover,.nav a.active{background:#ffe5f0;color:#b83d78}
+.main{flex:1;min-width:0;padding:30px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+h1{font-size:clamp(25px,3vw,34px);margin:0 0 7px}.sub{color:var(--muted);margin:0}.pill{background:#ffe5f0;color:#b83d78;border-radius:999px;padding:10px 14px;font-size:13px;font-weight:700}
+.card{background:#ffffffeb;border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 12px 30px #73426517}.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:700px}th,td{text-align:left;padding:14px 12px;border-bottom:1px solid #f3e5ed;font-size:14px}th{color:#8d6b81;font-size:12px;text-transform:uppercase;letter-spacing:.05em;background:#fff8fc}tbody tr:hover{background:#fff9fc}
+.status{display:inline-block;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:700}.verified{background:#e2f8ed;color:#217a52}.pending{background:#fff0d8;color:#96600c}.empty{text-align:center;color:var(--muted);padding:32px}.back{display:inline-block;margin-top:18px;color:#b83d78;text-decoration:none;font-weight:700}
+@media(max-width:760px){.layout{display:block}.sidebar{width:100%;padding:18px}.nav{display:flex;gap:5px;overflow-x:auto}.nav a{white-space:nowrap;margin:0;padding:10px 12px}.main{padding:18px}.card{padding:14px}}
+</style></head>
+<body><div class="layout">
+<aside class="sidebar"><div class="brand">Personal Expense<br><span>Tracker Admin</span></div><nav class="nav">
+<a href="{{ url_for('admin_dashboard') }}">Dashboard</a><a class="active" href="{{ url_for('admin_users') }}">Users</a><a href="{{ url_for('admin_expenses') }}">Expenses</a><a href="{{ url_for('admin_activity') }}">Activity Logs</a><a href="{{ url_for('admin_reports') }}">Reports</a><a href="{{ url_for('admin_logout') }}">Logout</a>
+</nav></aside>
+<main class="main"><div class="top"><div><h1>Registered Users 👥</h1><p class="sub">View accounts registered on Personal Expense Tracker.</p></div><span class="pill">Admin Panel</span></div>
+<section class="card"><div class="table-wrap"><table><thead><tr><th>ID</th><th>Full Name</th><th>Email</th><th>Mobile</th><th>Verification</th><th>Role</th><th>Registered On</th></tr></thead><tbody>
+{% for user in users %}<tr><td>{{ user['id'] }}</td><td>{{ user['full_name'] or '—' }}</td><td>{{ user['email'] or '—' }}</td><td>{{ user['mobile'] or '—' }}</td><td>{% if user['is_verified'] %}<span class="status verified">Verified</span>{% else %}<span class="status pending">Pending</span>{% endif %}</td><td>{{ user['role'] or 'user' }}</td><td>{{ user['created_at'] or '—' }}</td></tr>
+{% else %}<tr><td class="empty" colspan="7">No registered users found yet.</td></tr>{% endfor %}
+</tbody></table></div></section><a class="back" href="{{ url_for('admin_dashboard') }}">← Back to Dashboard</a></main></div></body></html>
