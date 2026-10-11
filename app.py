@@ -2049,9 +2049,27 @@ def admin_dashboard():
             LIMIT 10
             """
         ).fetchall()
+        
+        user_activity = connection.execute(
+            """
+            SELECT
+                users.id,
+                users.full_name,
+                COUNT(activity_logs.id) AS interactions,
+                MAX(activity_logs.created_at) AS last_seen
+            FROM users
+            LEFT JOIN activity_logs
+                ON users.id = activity_logs.user_id
+            GROUP BY users.id, users.full_name
+            ORDER BY interactions DESC, users.id DESC
+            LIMIT 10
+            """
+        ).fetchall()
+
 
     finally:
         connection.close()
+    
 
     return render_template(
         "admin_dashboard.html",
