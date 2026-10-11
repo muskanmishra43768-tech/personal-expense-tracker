@@ -2057,7 +2057,8 @@ def admin_dashboard():
         total_expense=total_expense,
         expense_count=expense_count,
         recent_users=recent_users,
-        recent_activity=recent_activity
+        recent_activity=recent_activity,
+        user_activity=user_activity
     )
 
 
